@@ -1,0 +1,224 @@
+// Tab switching (Home / My Certificate / About me).
+// Called from onclick attributes in index.html, so it must stay a global function.
+
+const decodeMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const DECODE_GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#/+';
+let decodeTimer = 0;
+
+// Briefly replace a heading with fixed-width scrambled glyphs, then lock it in.
+function decodeHeading(el, { delay = 0, duration = 640 } = {}) {
+    if (!el || el.dataset.decoded === 'true' || decodeMotion.matches) return;
+    if (el.offsetParent === null) return;
+
+    const original = el.textContent;
+    if (!original.trim()) return;
+
+    el.dataset.decoded = 'true';
+    el.setAttribute('aria-label', original);
+
+    const chars = Array.from(original);
+    const nodes = [];
+    el.textContent = '';
+
+    chars.forEach(char => {
+        if (char === ' ') {
+            el.appendChild(document.createTextNode(' '));
+            nodes.push(null);
+            return;
+        }
+        const span = document.createElement('span');
+        span.className = 'decode-char';
+        span.textContent = char;
+        el.appendChild(span);
+        nodes.push(span);
+    });
+
+    nodes.forEach(span => {
+        if (span) span.style.width = `${span.getBoundingClientRect().width}px`;
+    });
+
+    el.classList.add('is-decoding');
+    const start = performance.now() + delay;
+    let lastPaint = 0;
+
+    function finish() {
+        el.textContent = original;
+        el.removeAttribute('aria-label');
+        el.classList.remove('is-decoding');
+    }
+
+    function frame(now) {
+        if (decodeMotion.matches) {
+            finish();
+            return;
+        }
+        if (now < start) {
+            requestAnimationFrame(frame);
+            return;
+        }
+
+        const progress = Math.min(1, (now - start) / duration);
+        if (now - lastPaint > 38 || progress === 1) {
+            lastPaint = now;
+            const reveal = Math.floor(progress * (chars.length + 1) * 1.08);
+
+            nodes.forEach((span, index) => {
+                if (!span) return;
+                const char = chars[index];
+                if (!/[A-Za-z0-9]/.test(char) || index < reveal) {
+                    span.textContent = char;
+                    span.style.color = '';
+                } else {
+                    span.textContent = DECODE_GLYPHS[Math.floor(Math.random() * DECODE_GLYPHS.length)];
+                    span.style.color = 'var(--accent)';
+                }
+            });
+        }
+
+        if (progress < 1) requestAnimationFrame(frame);
+        else finish();
+    }
+
+    requestAnimationFrame(frame);
+}
+
+function decodeActiveTab(delay = 0) {
+    if (decodeMotion.matches) return;
+    if (document.documentElement.classList.contains('is-printing')) return;
+
+    const active = document.querySelector('.tab-content.active');
+    if (!active) return;
+
+    active.querySelectorAll('[data-decode]').forEach((el, index) => {
+        decodeHeading(el, { delay: delay + index * 80 });
+    });
+}
+
+function scheduleActiveDecode(delay = 180) {
+    window.clearTimeout(decodeTimer);
+    decodeTimer = window.setTimeout(() => decodeActiveTab(), delay);
+}
+
+// Full print-registration intro on load; click or Escape skips it.
+function initPrintIntro() {
+    const root = document.documentElement;
+    const intro = document.getElementById('print-intro');
+    if (!intro || !root.classList.contains('is-printing')) return;
+
+    let finished = false;
+    let revealTimer = 0;
+    let endTimer = 0;
+
+    function finish() {
+        if (finished) return;
+        finished = true;
+        window.clearTimeout(revealTimer);
+        window.clearTimeout(endTimer);
+        window.removeEventListener('keydown', onKey);
+        root.classList.remove('is-printing', 'is-print-revealing');
+        intro.hidden = true;
+        scheduleActiveDecode(120);
+    }
+
+    function onKey(event) {
+        if (event.key === 'Escape' || event.key === 'Enter' || event.key === ' ') finish();
+    }
+
+    intro.addEventListener('click', finish);
+    window.addEventListener('keydown', onKey);
+
+    // The paper shutters start opening here; the page animations resume
+    // underneath them, then the overlay is removed entirely.
+    revealTimer = window.setTimeout(() => {
+        root.classList.add('is-print-revealing');
+    }, 1000);
+    endTimer = window.setTimeout(finish, 1600);
+}
+
+function switchTab(tabName, updateHistory = true) {
+    const target = document.getElementById('tab-' + tabName);
+    if (!target) return;
+
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+
+    // Prepare the incoming tab while it is still hidden, then show it.
+    target.classList.add('is-entering');
+    prepareReveal(target, true);
+    target.classList.add('active');
+
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('is-active');
+        btn.removeAttribute('aria-current');
+    });
+
+    const activeBtn = document.getElementById('nav-' + tabName);
+    if (activeBtn) {
+        activeBtn.classList.add('is-active');
+        activeBtn.setAttribute('aria-current', 'page');
+    }
+
+    // Keep the tab in the URL so a refresh or shared link opens the same page.
+    // pushState adds a history entry, so Back/Forward move between tabs.
+    if (updateHistory) {
+        const url = new URL(location.href);
+        url.hash = tabName === 'home' ? '' : tabName;
+
+        if (url.href !== location.href) {
+            try {
+                history.pushState({ tab: tabName }, '', url.href);
+            } catch (err) {
+                // Some contexts (e.g. file://) block History API updates.
+                location.hash = tabName === 'home' ? '' : tabName;
+            }
+        }
+    }
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+
+    if (!document.documentElement.classList.contains('is-printing')) {
+        scheduleActiveDecode(180);
+    }
+}
+
+// Map the current URL hash to a tab name, falling back to home.
+function tabFromHash() {
+    const name = location.hash.slice(1);
+    return name && document.getElementById('tab-' + name) ? name : 'home';
+}
+
+// Give every revealable block in a tab its own stagger delay.
+// Facts rows are marked here, so new rows animate automatically.
+function prepareReveal(section, restart) {
+    if (!section) return;
+
+    section.querySelectorAll('.facts > div').forEach(el => {
+        if (!el.hasAttribute('data-reveal')) el.setAttribute('data-reveal', 'soft');
+    });
+
+    const items = section.querySelectorAll('[data-reveal]');
+    items.forEach((el, index) => el.style.setProperty('--reveal-index', index));
+
+    if (restart) {
+        section.classList.remove('is-revealing');
+        void section.offsetWidth; // force a reflow so the animation replays
+    }
+    section.classList.add('is-revealing');
+}
+
+// Open the tab named in the URL hash (e.g. index.html#certificate).
+window.addEventListener('DOMContentLoaded', () => {
+    const name = tabFromHash();
+    if (name !== 'home') {
+        switchTab(name, false);
+    } else {
+        prepareReveal(document.getElementById('tab-home'), false);
+    }
+
+    initPrintIntro();
+});
+
+// Handle Back/Forward and manual changes to the hash.
+window.addEventListener('hashchange', () => {
+    switchTab(tabFromHash(), false);
+});

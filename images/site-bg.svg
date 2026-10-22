@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" fill="none">
+    <defs>
+        <pattern id="site-stripes" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <rect width="9" height="18" fill="#f7f3ea" fill-opacity="0.18"/>
+        </pattern>
+    </defs>
+
+    <!-- Orange technical linework, scaled from the hero language. -->
+    <g stroke="#ff5a00" stroke-width="1.5" opacity="0.42">
+        <path d="M-40 120H250L430 300V430H260L-40 190Z"/>
+        <path d="M1180 20H1640V250H1450L1320 120H1180"/>
+        <path d="M1040 1020V820L1180 680H1640"/>
+        <path d="M-40 860H220L340 980V1040"/>
+        <path d="M200 80L520 80L680 240"/>
+        <path d="M620 1020V920L720 820H980"/>
+    </g>
+
+    <!-- Edge plates: orange and signal red, kept away from the reading centre. -->
+    <g fill="#ff5a00">
+        <path d="M-70 300H120L260 440V620H-70Z" opacity="0.20"/>
+        <path d="M1280 -40H1680V90H1500L1360 220H1280Z" opacity="0.26"/>
+        <path d="M1380 470H1680V880H1460L1380 800Z" opacity="0.24"/>
+    </g>
+    <path d="M-70 820H220L340 940V1080H-70Z" fill="#e2261c" opacity="0.18"/>
+
+    <!-- Registration hairlines. -->
+    <g stroke="#e2261c" stroke-width="1.5" opacity="0.30">
+        <path d="M1180 40L1240 340"/>
+        <path d="M240 680L420 840"/>
+        <path d="M1510 540L1470 760"/>
+    </g>
+
+    <!-- Faint 2026 ghost, without the hero logo or profile image. -->
+    <text x="1300" y="250" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="240" font-weight="900" letter-spacing="-10" fill="none" stroke="#f7f3ea" stroke-opacity="0.17" stroke-width="1.3">2026</text>
+
+    <!-- Tracking crosses. -->
+    <g stroke="#f7f3ea" stroke-width="1.2" opacity="0.32">
+        <path d="M140 300l12 12M152 300l-12 12"/>
+        <path d="M910 560l12 12M922 560l-12 12"/>
+        <path d="M1380 580l12 12M1392 580l-12 12"/>
+        <path d="M340 900l12 12M352 900l-12 12"/>
+    </g>
+
+    <rect x="1160" y="900" width="440" height="22" fill="url(#site-stripes)"/>
+</svg>
