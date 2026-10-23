@@ -40,6 +40,9 @@
 </head>
 <body>
 
+    <!-- Animated 3D depth layers behind the page content. -->
+    <canvas class="site-bg-canvas" id="site-bg-canvas" aria-hidden="true"></canvas>
+
     <!-- Slow drifting crosses behind the page content. -->
     <canvas class="site-particles" id="site-particles" aria-hidden="true"></canvas>
 
@@ -286,6 +289,7 @@
     </button>
 
     <script src="js/main.js"></script>
+    <script src="js/site-background.js"></script>
     <script src="js/site-particles.js"></script>
 </body>
 </html>

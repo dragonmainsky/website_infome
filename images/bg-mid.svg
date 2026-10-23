@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" fill="none">
+    <defs>
+        <pattern id="mid-stripes" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <rect width="9" height="18" fill="#f7f3ea" fill-opacity="0.18"/>
+        </pattern>
+    </defs>
+
+    <!-- Edge plates. -->
+    <g fill="#ff5a00">
+        <path d="M-70 300H120L260 440V620H-70Z" opacity="0.20"/>
+        <path d="M1280 -40H1680V90H1500L1360 220H1280Z" opacity="0.26"/>
+        <path d="M1380 470H1680V880H1460L1380 800Z" opacity="0.24"/>
+    </g>
+    <path d="M-70 820H220L340 940V1080H-70Z" fill="#e2261c" opacity="0.18"/>
+
+    <rect x="1160" y="900" width="440" height="22" fill="url(#mid-stripes)"/>
+</svg>

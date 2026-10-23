@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" fill="none">
+    <!-- Faint year ghost. -->
+    <text x="1300" y="250" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="240" font-weight="900" letter-spacing="-10" fill="none" stroke="#f7f3ea" stroke-opacity="0.17" stroke-width="1.3">2026</text>
+
+    <!-- Tracking crosses. -->
+    <g stroke="#f7f3ea" stroke-width="1.2" opacity="0.32">
+        <path d="M140 300l12 12M152 300l-12 12"/>
+        <path d="M910 560l12 12M922 560l-12 12"/>
+        <path d="M1380 580l12 12M1392 580l-12 12"/>
+        <path d="M340 900l12 12M352 900l-12 12"/>
+    </g>
+</svg>

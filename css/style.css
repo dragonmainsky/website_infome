@@ -57,8 +57,8 @@ body {
     letter-spacing: 0.015em;
 }
 
-/* Hero-derived technical backdrop. The shape layer is an SVG background so it
-   stays behind all composited content without another fixed stacking layer. */
+/* Base color, glow and grid. The animated depth layers are painted on
+   .site-bg-canvas above this layer. */
 body::before {
     content: "";
     position: fixed;
@@ -70,7 +70,6 @@ body::before {
         radial-gradient(ellipse at 90% 82%, rgba(226, 38, 28, 0.10), transparent 36%),
         linear-gradient(rgba(247, 243, 234, 0.045) 1px, transparent 1px) 0 0 / 72px 72px,
         linear-gradient(90deg, rgba(247, 243, 234, 0.045) 1px, transparent 1px) 0 0 / 72px 72px,
-        url('../images/site-bg.svg') center / cover no-repeat,
         var(--night);
 }
 
@@ -85,7 +84,9 @@ body::after {
         radial-gradient(ellipse at 50% 42%, transparent 0 42%, rgba(10, 10, 10, 0.18) 78%, rgba(10, 10, 10, 0.46) 100%);
 }
 
-/* Drifting X particles sit above the backdrop, below the page content. */
+/* Animated technical layers and drifting X particles sit above the backdrop,
+   below the page content. */
+.site-bg-canvas,
 .site-particles {
     position: fixed;
     inset: 0;

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" fill="none">
+    <!-- Far technical linework. -->
+    <g stroke="#ff5a00" stroke-width="1.5" opacity="0.42">
+        <path d="M-40 120H250L430 300V430H260L-40 190Z"/>
+        <path d="M1180 20H1640V250H1450L1320 120H1180"/>
+        <path d="M1040 1020V820L1180 680H1640"/>
+        <path d="M-40 860H220L340 980V1040"/>
+        <path d="M200 80L520 80L680 240"/>
+        <path d="M620 1020V920L720 820H980"/>
+    </g>
+
+    <!-- Registration hairlines. -->
+    <g stroke="#e2261c" stroke-width="1.5" opacity="0.30">
+        <path d="M1180 40L1240 340"/>
+        <path d="M240 680L420 840"/>
+        <path d="M1510 540L1470 760"/>
+    </g>
+</svg>
