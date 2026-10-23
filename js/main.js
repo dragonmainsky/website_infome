@@ -4,6 +4,7 @@
 const decodeMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const DECODE_GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#/+';
 let decodeTimer = 0;
+const revealFallbackTimers = new WeakMap();
 
 // Briefly replace a heading with fixed-width scrambled glyphs, then lock it in.
 function decodeHeading(el, { delay = 0, duration = 640 } = {}) {
@@ -203,7 +204,19 @@ function prepareReveal(section, restart) {
         section.classList.remove('is-revealing');
         void section.offsetWidth; // force a reflow so the animation replays
     }
+
+    section.classList.remove('is-revealed');
     section.classList.add('is-revealing');
+
+    // Some environments pause or skip CSS animations (background tabs,
+    // reduced-motion tools, headless screenshots). Never leave the copy at
+    // opacity 0: force the finished state once the choreography is over.
+    window.clearTimeout(revealFallbackTimers.get(section));
+    const introDelay = document.documentElement.classList.contains('is-printing') ? 1700 : 0;
+    const animationWindow = items.length * 70 + 600;
+    revealFallbackTimers.set(section, window.setTimeout(() => {
+        section.classList.add('is-revealed');
+    }, introDelay + animationWindow));
 }
 
 // Open the tab named in the URL hash (e.g. index.html#certificate).
