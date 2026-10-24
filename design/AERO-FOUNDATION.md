@@ -37,14 +37,20 @@ primary buttons use `#4A2600` ink on the orange fill.
 - Native target: **Segoe UI** / **Segoe UI Light**.
 - Cross-platform fallback: **Source Sans 3** (humanist sans, loaded as a webfont).
 - One family, four roles: light display, 600 headings, 400 body, 600 wide labels.
+- Thai copy (`lang="th"`) uses **Sarabun** 400/600 so the recipient name and Thai
+  labels keep their proportions. Segoe UI font files are never redistributed.
 - Display tracking: `-0.035em` to `-0.058em`; body copy never below 16px on desktop.
+- Reference: Frutiger Aero Archive, *How to nail the Web 2.0 Gloss look on your
+  website* (20 September 2025).
 
 ### Glass recipe
 
 Each glass surface combines:
 
 1. A translucent fill (clear 48%, frost 72%, deep 82%).
-2. `backdrop-filter: blur(22px) saturate(165%)` where supported.
+2. A small `backdrop-filter` budget: header **12px**, footer **10px**, buttons
+   **9px**, back-to-top **8px**, small chips and badges **5–7px**. Large reading
+   panels stay opaque; there is no large blurred surface over the moving sky.
 3. A 1px white border and inset top highlight.
 4. A soft blue-black outer shadow.
 5. An opaque fallback if backdrop-filter is unavailable.
@@ -134,8 +140,32 @@ The live page is now `index.html`, built on the Part 1 tokens.
   background is eager, the cloud and bubble layers are lazy, and the project art is
   set in CSS. Archive imagery totals 1.2 MB. No Microsoft marks, Windows flag or
   default wallpapers.
-- **Caching** — local CSS, JS and favicon links use `?v=5`; bump the version after
+- **Caching** — local CSS, JS and favicon links use `?v=6`; bump the version after
   changing those assets.
+
+## Subtle Web 2.0 gloss pass
+
+A restrained polish pass, inspired by the Frutiger Aero Archive article, adds
+material depth without bringing back the removed decorative chrome.
+
+- **Glossy controls** — primary and glass buttons, the active tab and the
+  back-to-top control get a `::before` top-highlight layer. The white gradient ends
+  in a crisp stop at 50–55% on the orange and blue fills, with a softer falloff on
+  clear glass. The layer sits at `z-index: -1` inside `isolation: isolate`, so labels
+  stay above it.
+- **Less frost** — blur was reduced across the shell (values above) so the sky reads
+  through the glass instead of turning into opaque frosting.
+- **One reflection** — the certificate image is mirrored under its frame via
+  `.cert-frame::after`: 20% opacity, a 0.4px blur and a top-to-bottom fade. Space is
+  reserved with `margin-bottom`; the reflection and that space are removed at
+  ≤680px.
+- **Stable layout** — `scrollbar-gutter: stable` prevents the 6px horizontal jump
+  when moving from a tall tab to a shorter one. The fixed atmosphere layer is
+  `100vw` wide so the reserved gutter is filled by the sky, not a flat colour strip.
+- **Back-to-top** — the control now appears after 240px of scroll. The previous
+  480px threshold was unreachable on desktop after the intro removal.
+- **No revival** — no intro overlay, hero window, window dots, orange logo orbs,
+  sun orb, profile numbers or footer copyright line.
 
 ## Parts 2–5 verification
 
@@ -147,6 +177,14 @@ The live page is now `index.html`, built on the Part 1 tokens.
   remains. Home and deep links open immediately.
 - Decorative chrome removed: the hero scene window, header/footer orange marks,
   panel window dots, Info Me sun orb and profile-number labels are gone.
+- Gloss pass checked at 320, 390, 840 and 1440px: button, active-tab and
+  back-to-top highlights render; labels stay above the gloss; the certificate
+  reflection is visible above 680px and absent at 390 and 320px; Thai copy uses
+  Sarabun.
+- Layout stability checked on direct `#about` / `#info` links: the scrollbar gutter
+  is reserved and the atmosphere fills it, removing the former 6px sideways jump.
+- Back-to-top verified at 1440px: it appears after 240px of scroll, is clickable and
+  hides again at the top.
 - Tabs, `aria-current`, URL hashes, direct deep links, Back/Forward, lazy
   certificate/avatar loading and the reveal fallback all verified.
 - Keyboard skip link keeps the active tab selected, ignores the `#main-content` hash
@@ -154,6 +192,7 @@ The live page is now `index.html`, built on the Part 1 tokens.
 - Reduced motion verified in headless Chrome at 320 and 390px: animations `none`,
   reveals visible, tab images loaded, no overflow.
 - Lighthouse on Home, Certificate, About and Info: **Accessibility 100 / Best
-  Practices 100 / SEO 100**, zero failures.
+  Practices 100 / SEO 100**, zero failures. CLS is 0 on Home/Certificate and
+  0.032 on the shorter About/Info tabs.
 - All local asset references return HTTP 200; the archive WebP total is
   1,199,456 bytes. No console errors.

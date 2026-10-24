@@ -59,7 +59,7 @@
         const y = window.scrollY || window.pageYOffset || 0;
 
         if (header) header.classList.toggle('is-scrolled', y > 24);
-        if (toTop) toTop.classList.toggle('is-visible', y > 480);
+        if (toTop) toTop.classList.toggle('is-visible', y > 240);
     }
 
     function onScroll() {
