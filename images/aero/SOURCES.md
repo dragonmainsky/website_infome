@@ -14,7 +14,7 @@ these images before any commercial use.
 | Local file | Original file | Archive page | Original size | Local size | Role |
 | --- | --- | --- | ---: | ---: | --- |
 | `bg-sky-hills.webp` | [`perfect_hue_49.jpg`](https://frutigeraeroarchive.org/images/wallpapers/perfect_hue/perfect_hue_49.jpg) | [Perfect Hue Design](https://frutigeraeroarchive.org/wallpapers/perfect_hue) | 3840 × 2160 | 2400 × 1350 | Fixed page atmosphere |
-| `hero-water-sun.webp` | [`perfect_hue_20.jpg`](https://frutigeraeroarchive.org/images/wallpapers/perfect_hue/perfect_hue_20.jpg) | [Perfect Hue Design](https://frutigeraeroarchive.org/wallpapers/perfect_hue) | 3840 × 2160 | 2400 × 1350 | Home hero / glass lab |
+| `hero-water-sun.webp` | [`perfect_hue_20.jpg`](https://frutigeraeroarchive.org/images/wallpapers/perfect_hue/perfect_hue_20.jpg) | [Perfect Hue Design](https://frutigeraeroarchive.org/wallpapers/perfect_hue) | 3840 × 2160 | 2400 × 1350 | Moodboard / glass lab (not used on the live page) |
 | `fg-cloud.webp` | [`clouds_20.png`](https://frutigeraeroarchive.org/images/resources/clouds/clouds_20.png) | [Clouds](https://frutigeraeroarchive.org/resources/clouds) | 1920 × 1280 | 1200 × 665 | Drifting cloud layer |
 | `fg-hills.webp` | [`foregrounds_95.png`](https://frutigeraeroarchive.org/images/resources/foregrounds/foregrounds_95.png) | [Foregrounds](https://frutigeraeroarchive.org/resources/foregrounds) | 1200 × 414 | 1200 × 414 | Bottom ground anchor |
 | `fg-bubbles.webp` | [`bubbles_25.png`](https://frutigeraeroarchive.org/images/resources/bubbles/bubbles_25.png) | [Bubbles](https://frutigeraeroarchive.org/resources/bubbles) | 1900 × 1900 | 1000 × 1146 | Ambient bubbles |
@@ -22,6 +22,9 @@ these images before any commercial use.
 | `fg-leaves.webp` | [`foregrounds_26.png`](https://frutigeraeroarchive.org/images/resources/foregrounds/foregrounds_26.png) | [Foregrounds](https://frutigeraeroarchive.org/resources/foregrounds) | 3500 × 2300 | 1100 × 723 | Leafy edge framing |
 
 Total local payload: **1,199,456 bytes / 1.2 MB**.
+
+The live page loads `bg-sky-hills`, `fg-cloud`, `fg-bubbles` and `fg-splash`.
+`hero-water-sun` is retained for `design/aero-moodboard.html` only.
 
 ## Processing
 

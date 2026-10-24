@@ -59,7 +59,7 @@ Each glass surface combines:
 ## Asset roles
 
 1. **bg-sky-hills** — fixed page atmosphere.
-2. **hero-water-sun** — Home lead, sample surface.
+2. **hero-water-sun** — moodboard and glass-lab sample only; not used on the live page.
 3. **fg-cloud** — low-opacity cloud pass.
 4. **fg-hills** — bottom ground anchor.
 5. **fg-bubbles** — floating ambient detail.
@@ -117,7 +117,7 @@ The live page is now `index.html`, built on the Part 1 tokens.
   former startup overlay has been removed.
 - **Chrome** — floating glass header, original SUNSHINE mark, four-tab navigation,
   compact stacked header at ≤760px, back-to-top control and a glass footer.
-- **Home** — hero water scene, profile window, focus chips and three project cards.
+- **Home** — single-column hero with focus chips and three project cards.
   Project media carries a top scrim so the decorative card numbers stay legible.
 - **Certificate / About / Info** — nearly opaque reading panels. The certificate and
   avatar load lazily. All original facts, copy and profile links are retained.
@@ -130,20 +130,23 @@ The live page is now `index.html`, built on the Part 1 tokens.
 - **Glass budget** — blur is limited to the header, tab bar, small controls and
   footer. Large reading surfaces stay nearly opaque. No large blurred surface sits
   over an animated fixed image.
-- **Assets** — five of the seven archive WebPs are used in the live page; the
-  background and hero are eager, the rest are lazy. Archive imagery totals 1.2 MB.
-  No Microsoft marks, Windows flag or default wallpapers.
-- **Caching** — local CSS, JS and favicon links use `?v=4`; bump the version after
+- **Assets** — four of the seven archive WebPs are used in the live page: the
+  background is eager, the cloud and bubble layers are lazy, and the project art is
+  set in CSS. Archive imagery totals 1.2 MB. No Microsoft marks, Windows flag or
+  default wallpapers.
+- **Caching** — local CSS, JS and favicon links use `?v=5`; bump the version after
   changing those assets.
 
 ## Parts 2–5 verification
 
 - Responsive sweep at 320, 390, 430, 600, 704, 768, 840, 1024, 1280, 1440 and
-  1920px: no unintended horizontal overflow. The header stacks at ≤760px; the hero
-  and panels stack at ≤900px.
+  1920px: no unintended horizontal overflow. The header stacks at ≤760px; the
+  reading panels stack at ≤900px.
 - Mobile visual QA at 320 and 390px for Home, Certificate, About, Info and the footer.
 - Startup overlay removed: no `#print-intro` markup, styles or `is-printing` state
   remains. Home and deep links open immediately.
+- Decorative chrome removed: the hero scene window, header/footer orange marks,
+  panel window dots, Info Me sun orb and profile-number labels are gone.
 - Tabs, `aria-current`, URL hashes, direct deep links, Back/Forward, lazy
   certificate/avatar loading and the reveal fallback all verified.
 - Keyboard skip link keeps the active tab selected, ignores the `#main-content` hash
@@ -152,5 +155,5 @@ The live page is now `index.html`, built on the Part 1 tokens.
   reveals visible, tab images loaded, no overflow.
 - Lighthouse on Home, Certificate, About and Info: **Accessibility 100 / Best
   Practices 100 / SEO 100**, zero failures.
-- All 12 local asset references return HTTP 200; the archive WebP total is
+- All local asset references return HTTP 200; the archive WebP total is
   1,199,456 bytes. No console errors.

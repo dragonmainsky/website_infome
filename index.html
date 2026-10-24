@@ -11,7 +11,7 @@
     <meta name="author" content="MOS">
     <meta name="theme-color" content="#2FA9E2">
     <meta name="color-scheme" content="light">
-    <link rel="icon" type="image/svg+xml" href="images/favicon.svg?v=4">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg?v=5">
     <link rel="preload" href="images/aero/bg-sky-hills.webp" as="image" fetchpriority="high">
 
     <meta property="og:type" content="website">
@@ -27,8 +27,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/aero-tokens.css?v=4">
-    <link rel="stylesheet" href="css/aero.css?v=4">
+    <link rel="stylesheet" href="css/aero-tokens.css?v=5">
+    <link rel="stylesheet" href="css/aero.css?v=5">
 </head>
 <body>
 
@@ -53,7 +53,6 @@
     <header class="site-header" id="site-header">
         <div class="header-inner">
             <a class="brand" href="#" onclick="switchTab('home'); return false;" title="SUNSHINE — home">
-                <span class="brand-mark" aria-hidden="true"></span>
                 <span class="brand-copy">
                     <span class="brand-name">SUNSHINE</span>
                     <span class="brand-sub">Full Aero / Portfolio</span>
@@ -110,32 +109,6 @@
                         <li>Cybersecurity</li>
                         <li>CTF Competitions</li>
                     </ul>
-                </div>
-
-                <div class="hero__visual" data-reveal="soft">
-                    <div class="window hero-window">
-                        <div class="window__bar" aria-hidden="true">
-                            <span class="window__lights"><span></span><span></span><span></span></span>
-                            <span class="window__title">SUNSHINE / PROFILE</span>
-                            <span class="window__meta">AERO 01</span>
-                        </div>
-                        <div class="hero-window__scene">
-                            <img src="images/aero/hero-water-sun.webp" alt="Sunlight breaking over clear turquoise water" width="2400" height="1350" fetchpriority="high" decoding="async">
-                            <span class="hero-window__shine" aria-hidden="true"></span>
-                            <span class="hero-window__tag" aria-hidden="true">SCENE 01 / WATER + SUN</span>
-                            <div class="profile-card">
-                                <span class="profile-card__avatar" aria-hidden="true">M</span>
-                                <span class="profile-card__body">
-                                    <span class="profile-card__label">PROFILE / 001</span>
-                                    <strong>MOS — CS &amp; Cybersecurity</strong>
-                                    <span>Mahasarakham University / Network &amp; Security</span>
-                                </span>
-                                <span class="profile-card__status"><span aria-hidden="true"></span>Online</span>
-                            </div>
-                        </div>
-                    </div>
-                    <img class="hero__bubble" src="images/aero/fg-bubbles.webp" alt="" width="1000" height="1146" loading="lazy" decoding="async" aria-hidden="true">
-                    <span class="hero__flare" aria-hidden="true"></span>
                 </div>
             </div>
 
@@ -204,7 +177,6 @@
         <section id="tab-certificate" class="tab-content" aria-labelledby="certificate-title">
             <div class="panel panel--cert">
                 <div class="panel__chrome" aria-hidden="true">
-                    <span class="window__lights"><span></span><span></span><span></span></span>
                     <span class="panel__title">My Certificate</span>
                     <span class="panel__meta">CERT-2026-RDE28N</span>
                 </div>
@@ -259,9 +231,7 @@
         <section id="tab-about" class="tab-content" aria-labelledby="about-title">
             <div class="panel panel--about">
                 <div class="panel__chrome" aria-hidden="true">
-                    <span class="window__lights"><span></span><span></span><span></span></span>
                     <span class="panel__title">About Me</span>
-                    <span class="panel__meta">PROFILE / 003</span>
                 </div>
 
                 <div class="panel__body">
@@ -271,7 +241,6 @@
                             <span class="avatar-badge" aria-hidden="true">SUNSHINE / 2026</span>
                         </div>
                         <div class="about-copy">
-                            <span class="kicker" data-reveal>Profile / 003</span>
                             <h2 id="about-title" data-reveal data-decode>MOS</h2>
                             <p class="about-copy__lede" data-reveal="soft"><strong>19 years old</strong> • Computer Science major at <strong>Mahasarakham University</strong></p>
                             <p data-reveal="soft">
@@ -303,21 +272,17 @@
         <section id="tab-info" class="tab-content" aria-labelledby="info-title">
             <div class="panel panel--info">
                 <div class="panel__chrome" aria-hidden="true">
-                    <span class="window__lights"><span></span><span></span><span></span></span>
                     <span class="panel__title">Info Me</span>
-                    <span class="panel__meta">PROFILE / 004</span>
                 </div>
 
                 <div class="panel__body">
                     <div class="info-head">
                         <div>
-                            <span class="kicker" data-reveal>Profile / 004</span>
                             <h2 id="info-title" data-reveal data-decode>Info Me</h2>
                             <p data-reveal="soft">
                                 Find me across the platforms I use for security practice, learning, and creative work.
                             </p>
                         </div>
-                        <span class="info-sun" aria-hidden="true"><i class="fa-solid fa-sun"></i></span>
                     </div>
 
                     <ul class="profile-links" aria-label="Online profiles">
@@ -385,11 +350,9 @@
     <footer class="site-footer">
         <div class="footer-card">
             <p class="footer-brand">
-                <span class="footer-brand__mark" aria-hidden="true"></span>
                 <span><strong>SUNSHINE</strong><span>Full Aero / Portfolio</span></span>
             </p>
             <p class="footer-credit">Imagery by Perfect Hue Design / Frutiger Aero Archive. Personal, non-commercial use.</p>
-            <p class="footer-meta">© 2026 MOS · Built with clear skies.</p>
         </div>
     </footer>
 
@@ -397,7 +360,7 @@
         <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
     </button>
 
-    <script src="js/main.js?v=4"></script>
-    <script src="js/aero-world.js?v=4"></script>
+    <script src="js/main.js?v=5"></script>
+    <script src="js/aero-world.js?v=5"></script>
 </body>
 </html>
