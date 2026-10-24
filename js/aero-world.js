@@ -39,7 +39,6 @@
 
     function onPointerMove(event) {
         if (!finePointer.matches || reduceMotion.matches) return;
-        if (root.classList.contains('is-printing')) return;
 
         targetX = Math.max(-1, Math.min(1, (event.clientX / Math.max(1, innerWidth) - 0.5) * 2));
         targetY = Math.max(-1, Math.min(1, (event.clientY / Math.max(1, innerHeight) - 0.5) * 2));

@@ -113,8 +113,8 @@ cloud/bubble drift on cheap transforms and pause it for `prefers-reduced-motion`
 The live page is now `index.html`, built on the Part 1 tokens.
 
 - **Shell** — fixed `bg-sky-hills` atmosphere with a CSS sun glow, two cloud passes,
-  a bubble layer and a light veil. The print-registration intro opens once; Escape,
-  Enter, Space or a click skips it.
+  a bubble layer and a light veil. The page opens directly on the active tab; the
+  former startup overlay has been removed.
 - **Chrome** — floating glass header, original SUNSHINE mark, four-tab navigation,
   compact stacked header at ≤760px, back-to-top control and a glass footer.
 - **Home** — hero water scene, profile window, focus chips and three project cards.
@@ -133,7 +133,7 @@ The live page is now `index.html`, built on the Part 1 tokens.
 - **Assets** — five of the seven archive WebPs are used in the live page; the
   background and hero are eager, the rest are lazy. Archive imagery totals 1.2 MB.
   No Microsoft marks, Windows flag or default wallpapers.
-- **Caching** — local CSS, JS and favicon links use `?v=3`; bump the version after
+- **Caching** — local CSS, JS and favicon links use `?v=4`; bump the version after
   changing those assets.
 
 ## Parts 2–5 verification
@@ -142,12 +142,14 @@ The live page is now `index.html`, built on the Part 1 tokens.
   1920px: no unintended horizontal overflow. The header stacks at ≤760px; the hero
   and panels stack at ≤900px.
 - Mobile visual QA at 320 and 390px for Home, Certificate, About, Info and the footer.
+- Startup overlay removed: no `#print-intro` markup, styles or `is-printing` state
+  remains. Home and deep links open immediately.
 - Tabs, `aria-current`, URL hashes, direct deep links, Back/Forward, lazy
-  certificate/avatar loading, intro skip and the reveal fallback all verified.
+  certificate/avatar loading and the reveal fallback all verified.
 - Keyboard skip link keeps the active tab selected, ignores the `#main-content` hash
   in tab routing and focuses `MAIN#main-content`.
-- Reduced motion verified in headless Chrome at 320 and 390px: intro hidden,
-  animations `none`, reveals visible, tab images loaded, no overflow.
+- Reduced motion verified in headless Chrome at 320 and 390px: animations `none`,
+  reveals visible, tab images loaded, no overflow.
 - Lighthouse on Home, Certificate, About and Info: **Accessibility 100 / Best
   Practices 100 / SEO 100**, zero failures.
 - All 12 local asset references return HTTP 200; the archive WebP total is

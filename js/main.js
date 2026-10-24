@@ -1,4 +1,4 @@
-// Tab switching (Home / My Certificate / About me).
+// Tab switching (Home / My Certificate / About me / Info Me).
 // Called from onclick attributes in index.html, so it must stay a global function.
 
 const decodeMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -85,7 +85,6 @@ function decodeHeading(el, { delay = 0, duration = 640 } = {}) {
 
 function decodeActiveTab(delay = 0) {
     if (decodeMotion.matches) return;
-    if (document.documentElement.classList.contains('is-printing')) return;
 
     const active = document.querySelector('.tab-content.active');
     if (!active) return;
@@ -98,42 +97,6 @@ function decodeActiveTab(delay = 0) {
 function scheduleActiveDecode(delay = 180) {
     window.clearTimeout(decodeTimer);
     decodeTimer = window.setTimeout(() => decodeActiveTab(), delay);
-}
-
-// Full print-registration intro on load; click or Escape skips it.
-function initPrintIntro() {
-    const root = document.documentElement;
-    const intro = document.getElementById('print-intro');
-    if (!intro || !root.classList.contains('is-printing')) return;
-
-    let finished = false;
-    let revealTimer = 0;
-    let endTimer = 0;
-
-    function finish() {
-        if (finished) return;
-        finished = true;
-        window.clearTimeout(revealTimer);
-        window.clearTimeout(endTimer);
-        window.removeEventListener('keydown', onKey);
-        root.classList.remove('is-printing', 'is-print-revealing');
-        intro.hidden = true;
-        scheduleActiveDecode(120);
-    }
-
-    function onKey(event) {
-        if (event.key === 'Escape' || event.key === 'Enter' || event.key === ' ') finish();
-    }
-
-    intro.addEventListener('click', finish);
-    window.addEventListener('keydown', onKey);
-
-    // The paper shutters start opening here; the page animations resume
-    // underneath them, then the overlay is removed entirely.
-    revealTimer = window.setTimeout(() => {
-        root.classList.add('is-print-revealing');
-    }, 1000);
-    endTimer = window.setTimeout(finish, 1600);
 }
 
 function switchTab(tabName, updateHistory = true) {
@@ -177,9 +140,7 @@ function switchTab(tabName, updateHistory = true) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
 
-    if (!document.documentElement.classList.contains('is-printing')) {
-        scheduleActiveDecode(180);
-    }
+    scheduleActiveDecode(180);
 }
 
 // Map the current URL hash to a tab name, falling back to home.
@@ -212,11 +173,10 @@ function prepareReveal(section, restart) {
     // reduced-motion tools, headless screenshots). Never leave the copy at
     // opacity 0: force the finished state once the choreography is over.
     window.clearTimeout(revealFallbackTimers.get(section));
-    const introDelay = document.documentElement.classList.contains('is-printing') ? 1700 : 0;
     const animationWindow = items.length * 70 + 600;
     revealFallbackTimers.set(section, window.setTimeout(() => {
         section.classList.add('is-revealed');
-    }, introDelay + animationWindow));
+    }, animationWindow));
 }
 
 // Open the tab named in the URL hash (e.g. index.html#certificate).
@@ -226,9 +186,8 @@ window.addEventListener('DOMContentLoaded', () => {
         switchTab(name, false);
     } else {
         prepareReveal(document.getElementById('tab-home'), false);
+        scheduleActiveDecode(120);
     }
-
-    initPrintIntro();
 });
 
 // Handle Back/Forward and manual changes to the hash.
