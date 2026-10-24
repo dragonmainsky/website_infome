@@ -140,7 +140,7 @@ The live page is now `index.html`, built on the Part 1 tokens.
   background is eager, the cloud and bubble layers are lazy, and the project art is
   set in CSS. Archive imagery totals 1.2 MB. No Microsoft marks, Windows flag or
   default wallpapers.
-- **Caching** — local CSS, JS and favicon links use `?v=6`; bump the version after
+- **Caching** — local CSS, JS and favicon links use `?v=7`; bump the version after
   changing those assets.
 
 ## Subtle Web 2.0 gloss pass
@@ -156,7 +156,7 @@ material depth without bringing back the removed decorative chrome.
 - **Less frost** — blur was reduced across the shell (values above) so the sky reads
   through the glass instead of turning into opaque frosting.
 - **One reflection** — the certificate image is mirrored under its frame via
-  `.cert-frame::after`: 20% opacity, a 0.4px blur and a top-to-bottom fade. Space is
+  `.cert-frame::after`: 18% opacity, a 0.4px blur and a top-to-bottom fade. Space is
   reserved with `margin-bottom`; the reflection and that space are removed at
   ≤680px.
 - **Stable layout** — `scrollbar-gutter: stable` prevents the 6px horizontal jump
@@ -166,6 +166,42 @@ material depth without bringing back the removed decorative chrome.
   480px threshold was unreachable on desktop after the intro removal.
 - **No revival** — no intro overlay, hero window, window dots, orange logo orbs,
   sun orb, profile numbers or footer copyright line.
+
+## Liquid Glass pass
+
+A CSS-only “Liquid Glass Lite” pass brings the iOS 26/27 material language to the
+floating chrome and the certificate mount without turning the site into a blur
+demo. It is an approximation: no WebGL, SVG displacement filter, real refraction
+or continuous animated shimmer.
+
+- **Material tokens** — `aero-tokens.css` adds `--aero-liquid-rim` (iridescent conic
+  gradient), `--aero-liquid-specular` (angled white sheen), `--aero-liquid-wash`
+  (soft radial glow), `--aero-liquid-edge` (inset edge lights) and
+  `--aero-liquid-shadow`. Components compose these with their existing colour
+  gradients rather than replacing them.
+- **Iridescent rim** — a single 1px rim is masked out of a conic gradient with
+  `mask-composite: exclude` / `-webkit-mask-composite: xor`. The rule is wrapped in
+  `@supports`, so a browser without mask compositing keeps the ordinary border and
+  box-shadow instead of leaking the gradient across the surface. It is applied to
+  the header shell, tab bar, section heads, footer card and certificate bezel.
+- **Floating chrome** — the header uses a 14px/saturate(170%) backdrop blur with a
+  layered wash and specular highlight; the tab bar and active tab get brighter
+  inner edges. The scrolled header settles to a slightly stronger tint.
+- **Project cards** — the card body gets a layered wash, specular sheen and inset
+  edge light; the artwork keeps a static diagonal sheen and a glass fade into the
+  body. The archive image itself is never blurred. Tags and the project icon use
+  small glass fills with inset highlights.
+- **Certificate mount** — the frame is a glass bezel: layered specular and warm
+  corner tint, 1px rim, inset edge lights and a soft cyan glow. `--cert-pad` drives
+  the 0.8rem bezel (0.45rem at ≤430px). The certificate image stays at full
+  resolution with only a 1px hairline and shadow, and the reflection beneath it
+  follows the same padding at 18% opacity. No blur is placed over the certificate.
+- **Reading surfaces** — the Certificate / About / Info panels keep their nearly
+  opaque fill. Actual `backdrop-filter` remains limited to floating chrome, small
+  controls and the footer; long reading areas are not blurred.
+- **Supporting glass** — profile cards, chips, tags, the verified badge and the
+  footer receive light rims and specular layers so the material reads consistently
+  without adding more blur.
 
 ## Parts 2–5 verification
 
@@ -181,6 +217,18 @@ material depth without bringing back the removed decorative chrome.
   back-to-top highlights render; labels stay above the gloss; the certificate
   reflection is visible above 680px and absent at 390 and 320px; Thai copy uses
   Sarabun.
+- Liquid Glass checked at 1440, 840, 390 and 320px on all four tabs: header, tab
+  bar, section heads, project cards, certificate bezel, profile cards and footer
+  render their washes, rims and edge lights without horizontal overflow. Body copy
+  stays legible over the tinted glass and the certificate artwork remains sharp.
+- The masked rim resolves to a conic gradient with `mask-composite: exclude` on the
+  header, section head and certificate bezel. The `@supports` guard keeps the
+  ordinary border as the fallback.
+- Certificate bezel padding measures 12.8px on desktop and 7.2px at ≤430px; the
+  image keeps its 1.414 aspect ratio. The reflection follows `--cert-pad` and is
+  hidden at 390 and 320px.
+- Local references now use `?v=7`; the page, both stylesheets, both scripts, favicon
+  and live imagery all return HTTP 200.
 - Layout stability checked on direct `#about` / `#info` links: the scrollbar gutter
   is reserved and the atmosphere fills it, removing the former 6px sideways jump.
 - Back-to-top verified at 1440px: it appears after 240px of scroll, is clickable and
@@ -193,6 +241,6 @@ material depth without bringing back the removed decorative chrome.
   reveals visible, tab images loaded, no overflow.
 - Lighthouse on Home, Certificate, About and Info: **Accessibility 100 / Best
   Practices 100 / SEO 100**, zero failures. CLS is 0 on Home/Certificate and
-  0.032 on the shorter About/Info tabs.
+  0.038 on the shorter About/Info tabs.
 - All local asset references return HTTP 200; the archive WebP total is
   1,199,456 bytes. No console errors.

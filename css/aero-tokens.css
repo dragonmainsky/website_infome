@@ -179,6 +179,41 @@
   --aero-glass-glow: rgba(139, 238, 255, 0.48);
 
   /* ---------------------------------------------------------------------
+     Liquid Glass
+     iOS 26/27-inspired rim, specular and tint layers. Apply to floating
+     chrome and the certificate mount only; keep reading panels opaque.
+     --------------------------------------------------------------------- */
+  --aero-liquid-rim: conic-gradient(
+    from 145deg at 50% 50%,
+    rgba(255, 255, 255, 0.98) 0deg,
+    rgba(158, 240, 255, 0.55) 58deg,
+    rgba(255, 255, 255, 0.18) 132deg,
+    rgba(255, 255, 255, 0.9) 218deg,
+    rgba(255, 219, 168, 0.45) 286deg,
+    rgba(255, 255, 255, 0.98) 360deg
+  );
+  --aero-liquid-specular: linear-gradient(
+    116deg,
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(255, 255, 255, 0.18) 18%,
+    rgba(255, 255, 255, 0) 44%
+  );
+  --aero-liquid-wash: radial-gradient(
+    120% 150% at 14% -28%,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(255, 255, 255, 0.22) 38%,
+    rgba(255, 255, 255, 0) 66%
+  );
+  --aero-liquid-edge:
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 -1px 0 rgba(70, 164, 199, 0.24),
+    inset 0 22px 44px -36px rgba(255, 255, 255, 0.95);
+  --aero-liquid-shadow:
+    0 30px 64px -30px rgba(3, 54, 86, 0.62),
+    0 8px 22px -14px rgba(3, 54, 86, 0.24),
+    0 0 36px rgba(139, 238, 255, 0.18);
+
+  /* ---------------------------------------------------------------------
      Controls and titles
      --------------------------------------------------------------------- */
   --aero-titlebar-gradient: linear-gradient(
