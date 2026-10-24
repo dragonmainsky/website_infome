@@ -232,6 +232,9 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // Handle Back/Forward and manual changes to the hash.
+// Ignore in-page anchors such as the skip link; only tab hashes switch views.
 window.addEventListener('hashchange', () => {
+    const name = location.hash.slice(1);
+    if (name && !document.getElementById('tab-' + name)) return;
     switchTab(tabFromHash(), false);
 });

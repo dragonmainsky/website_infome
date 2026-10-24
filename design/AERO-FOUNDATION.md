@@ -1,8 +1,11 @@
 # SUNSHINE — Full Aero foundation
 
-**Part 1 of 5** · Review sheet: [`aero-moodboard.html`](aero-moodboard.html)  
-Tokens: [`../css/aero-tokens.css`](../css/aero-tokens.css)  
-Assets and attribution: [`../images/aero/SOURCES.md`](../images/aero/SOURCES.md)
+**Parts 1–5 implemented**
+
+- Review sheet: [`aero-moodboard.html`](aero-moodboard.html)
+- Tokens: [`../css/aero-tokens.css`](../css/aero-tokens.css)
+- Live theme: [`../css/aero.css`](../css/aero.css)
+- Assets and attribution: [`../images/aero/SOURCES.md`](../images/aero/SOURCES.md)
 
 ## Direction
 
@@ -104,3 +107,48 @@ cloud/bubble drift on cheap transforms and pause it for `prefers-reduced-motion`
 - All seven WebP assets load; the four decorative layers keep their natural aspect
   ratio at every tested width.
 - Anchor links land below the sticky toolbar (`scroll-margin-top`: 7rem).
+
+## Parts 2–5 implementation
+
+The live page is now `index.html`, built on the Part 1 tokens.
+
+- **Shell** — fixed `bg-sky-hills` atmosphere with a CSS sun glow, two cloud passes,
+  a bubble layer and a light veil. The print-registration intro opens once; Escape,
+  Enter, Space or a click skips it.
+- **Chrome** — floating glass header, original SUNSHINE mark, four-tab navigation,
+  compact stacked header at ≤760px, back-to-top control and a glass footer.
+- **Home** — hero water scene, profile window, focus chips and three project cards.
+  Project media carries a top scrim so the decorative card numbers stay legible.
+- **Certificate / About / Info** — nearly opaque reading panels. The certificate and
+  avatar load lazily. All original facts, copy and profile links are retained.
+- **Navigation** — `switchTab()` updates `aria-current`, the URL hash and history.
+  Deep links and Back/Forward open the matching tab. Non-tab anchors are ignored so
+  the skip link does not change views.
+- **Motion** — staggered reveals, heading decode and pointer parallax. All decorative
+  motion is disabled under `prefers-reduced-motion`; the reveal fallback remains in
+  place for environments that skip animations.
+- **Glass budget** — blur is limited to the header, tab bar, small controls and
+  footer. Large reading surfaces stay nearly opaque. No large blurred surface sits
+  over an animated fixed image.
+- **Assets** — five of the seven archive WebPs are used in the live page; the
+  background and hero are eager, the rest are lazy. Archive imagery totals 1.2 MB.
+  No Microsoft marks, Windows flag or default wallpapers.
+- **Caching** — local CSS, JS and favicon links use `?v=3`; bump the version after
+  changing those assets.
+
+## Parts 2–5 verification
+
+- Responsive sweep at 320, 390, 430, 600, 704, 768, 840, 1024, 1280, 1440 and
+  1920px: no unintended horizontal overflow. The header stacks at ≤760px; the hero
+  and panels stack at ≤900px.
+- Mobile visual QA at 320 and 390px for Home, Certificate, About, Info and the footer.
+- Tabs, `aria-current`, URL hashes, direct deep links, Back/Forward, lazy
+  certificate/avatar loading, intro skip and the reveal fallback all verified.
+- Keyboard skip link keeps the active tab selected, ignores the `#main-content` hash
+  in tab routing and focuses `MAIN#main-content`.
+- Reduced motion verified in headless Chrome at 320 and 390px: intro hidden,
+  animations `none`, reveals visible, tab images loaded, no overflow.
+- Lighthouse on Home, Certificate, About and Info: **Accessibility 100 / Best
+  Practices 100 / SEO 100**, zero failures.
+- All 12 local asset references return HTTP 200; the archive WebP total is
+  1,199,456 bytes. No console errors.
