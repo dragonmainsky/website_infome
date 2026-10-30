@@ -31,7 +31,27 @@
     <link rel="stylesheet" href="css/aero.css?v=7">
 </head>
 <body>
-
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="lg-refract" x="0" y="0" width="100%" height="100%"
+            color-interpolation-filters="sRGB">
+        <feImage preserveAspectRatio="none" result="map" href="data:image/svg+xml;utf8,
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'>
+            <defs>
+            <linearGradient id='l'><stop offset='0' stop-color='rgb(0,128,128)'/><stop offset='1' stop-color='rgb(128,128,128)'/></linearGradient>
+            <linearGradient id='r'><stop offset='0' stop-color='rgb(128,128,128)'/><stop offset='1' stop-color='rgb(255,128,128)'/></linearGradient>
+            <linearGradient id='t' x2='0' y2='1'><stop offset='0' stop-color='rgb(128,128,0)'/><stop offset='1' stop-color='rgb(128,128,128)'/></linearGradient>
+            <linearGradient id='b' x2='0' y2='1'><stop offset='0' stop-color='rgb(128,128,128)'/><stop offset='1' stop-color='rgb(128,128,255)'/></linearGradient>
+            </defs>
+            <rect width='100' height='100' fill='rgb(128,128,128)'/>
+            <rect width='4' height='100' fill='url(%23l)'/>
+            <rect x='96' width='4' height='100' fill='url(%23r)'/>
+            <rect width='100' height='14' fill='url(%23t)'/>
+            <rect y='86' width='100' height='14' fill='url(%23b)'/>
+        </svg>"/>
+        <feDisplacementMap in="SourceGraphic" in2="map" scale="26"
+                        xChannelSelector="R" yChannelSelector="B"/>
+    </filter>
+    </svg>
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <!-- Fixed Full Aero atmosphere: sky, sun glow, clouds and bubbles. -->

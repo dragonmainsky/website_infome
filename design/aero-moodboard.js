@@ -36,4 +36,8 @@
     if (year) {
         year.textContent = new Date().getFullYear();
     }
+
+    if (navigator.userAgentData?.brands?.some(b => b.brand === 'Chromium')) {
+        root.classList.add('lg-refract');
+    }
 })();

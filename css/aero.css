@@ -190,14 +190,14 @@ textarea {
     inset: 0;
     background:
         linear-gradient(103deg,
-            rgba(3, 44, 68, 0.44) 0%,
-            rgba(3, 44, 68, 0.2) 34%,
+            rgba(3, 44, 68, 0.18) 0%,
+            rgba(3, 44, 68, 0.08) 34%,
             rgba(3, 44, 68, 0) 62%),
         linear-gradient(180deg,
-            rgba(3, 44, 68, 0.28) 0%,
+            rgba(3, 44, 68, 0.08) 0%,
             rgba(3, 44, 68, 0) 22%,
             rgba(255, 255, 255, 0) 70%,
-            rgba(226, 250, 255, 0.26) 100%);
+            rgba(226, 249, 255, 0.26) 100%);
 }
 
 .aero-cloud {
@@ -2158,4 +2158,78 @@ h4 {
     .profile-link:hover {
         transform: none !important;
     }
+}
+
+/* ==========================================================================
+   Liquid Glass override pass (keep at the end of the file)
+   ========================================================================== */
+:root {
+  --lg-fill: linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,.05));
+  --lg-rim:
+    inset 1.5px 1.5px 1px -1px rgba(255,255,255,.95),
+    inset -1.5px -1.5px 1px -1px rgba(255,255,255,.55),
+    inset 0 0 22px rgba(255,255,255,.16),
+    inset 0 -14px 22px -16px rgba(30,160,220,.28);
+  --lg-shadow: 0 12px 30px -14px rgba(3,54,86,.38);
+  --lg-spec: radial-gradient(60% 170% at calc(50% + var(--aero-px, 0) * 38%) -25%,
+      rgba(255,255,255,.5), transparent 62%);
+}
+
+.header-inner,
+.site-header.is-scrolled .header-inner,
+.section-head,
+.footer-card {
+  background: var(--lg-spec), var(--lg-fill);
+  box-shadow: var(--lg-shadow), var(--lg-rim);
+  -webkit-backdrop-filter: blur(5px) saturate(190%) brightness(1.06);
+  backdrop-filter: blur(5px) saturate(190%) brightness(1.06);
+}
+
+/* Slightly more body once scrolled, so text under it stays calm */
+.site-header.is-scrolled .header-inner {
+  background: var(--lg-spec),
+    linear-gradient(180deg, rgba(255,255,255,.34), rgba(255,255,255,.12));
+}
+
+/* Nested inside .header-inner, so no backdrop-filter here */
+.nav { background: var(--lg-fill); box-shadow: var(--lg-rim); }
+
+.project {
+  background: var(--aero-liquid-specular),
+    linear-gradient(180deg, rgba(255,255,255,.62), rgba(235,251,255,.42));
+  box-shadow: var(--lg-shadow), var(--lg-rim);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  backdrop-filter: blur(8px) saturate(180%);
+}
+.project:hover {
+  box-shadow: 0 26px 50px -22px rgba(3,54,86,.5), var(--lg-rim),
+              0 0 36px rgba(139,238,255,.25);
+}
+
+.cert-frame {
+  background: var(--lg-fill);
+  box-shadow: var(--lg-shadow), var(--lg-rim);
+}
+
+/* Section heads: a little more body so the small labels stay readable */
+.section-head {
+  background: var(--lg-spec),
+    linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,.2));
+}
+
+/* Footer stays dark-tinted glass so its white text remains readable */
+.footer-card {
+  background:
+    var(--lg-spec),
+    linear-gradient(180deg, rgba(11,58,86,.52), rgba(4,31,51,.66));
+  box-shadow: var(--lg-shadow), var(--lg-rim);
+}
+
+/* Chromium only: real refraction (class added by aero-world.js) */
+.lg-refract .header-inner,
+.lg-refract .site-header.is-scrolled .header-inner,
+.lg-refract .section-head,
+.lg-refract .footer-card {
+  -webkit-backdrop-filter: url(#lg-refract) blur(3px) saturate(190%) brightness(1.06);
+  backdrop-filter: url(#lg-refract) blur(3px) saturate(190%) brightness(1.06);
 }
