@@ -198,6 +198,41 @@ window.addEventListener('hashchange', () => {
     switchTab(tabFromHash(), false);
 });
 
+// Split the hero heading into individual letters so each one can wiggle.
+function splitWiggleText() {
+    const target = document.querySelector('[data-wiggle]');
+    if (!target || target.dataset.wiggleReady === 'true') return;
+    target.dataset.wiggleReady = 'true';
+
+    const walker = document.createTreeWalker(target, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    let index = 0;
+    nodes.forEach(node => {
+        if (!node.nodeValue) return;
+        const fragment = document.createDocumentFragment();
+
+        for (const char of node.nodeValue) {
+            if (/\s/.test(char)) {
+                fragment.appendChild(document.createTextNode(char));
+                continue;
+            }
+
+            const span = document.createElement('span');
+            span.className = 'wg';
+            span.style.setProperty('--wg-i', index);
+            span.textContent = char;
+            fragment.appendChild(span);
+            index += 1;
+        }
+
+        node.replaceWith(fragment);
+    });
+}
+
+splitWiggleText();
+
 // Show the back-to-top button once the page has scrolled a little.
 (() => {
     const toTop = document.getElementById('to-top');

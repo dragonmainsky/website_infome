@@ -451,6 +451,30 @@ strong {
     transform: rotate(-1.5deg);
 }
 
+.hero h1 .wg {
+    display: inline-block;
+    transform-origin: 50% 82%;
+    animation: text-wiggle 1.9s ease-in-out infinite;
+    animation-delay: calc(var(--wg-i, 0) * 45ms);
+    will-change: transform;
+}
+
+@keyframes text-wiggle {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    20% {
+        transform: translateY(-6px) rotate(-3deg);
+    }
+    45% {
+        transform: translateY(1px) rotate(2deg);
+    }
+    70% {
+        transform: translateY(-3px) rotate(-1.5deg);
+    }
+}
+
 .hero__lede {
     max-width: 46ch;
     margin: 0;
@@ -1722,5 +1746,9 @@ strong {
         clip-path: none;
         opacity: 1;
         transform: none;
+    }
+
+    .hero h1 .wg {
+        animation: none;
     }
 }
