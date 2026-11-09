@@ -35,9 +35,7 @@ body {
     color: var(--ink);
     background-color: #eaf7c6;
     background-image:
-        radial-gradient(95% 70% at 82% 0%, rgba(166, 206, 57, 0.5), rgba(166, 206, 57, 0) 55%),
-        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22280%22%20height%3D%22280%22%20viewBox%3D%220%200%20280%20280%22%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%237fa52a%22%20stroke-opacity%3D%22.10%22%20stroke-width%3D%223%22%3E%0A%3Ccircle%20cx%3D%2246%22%20cy%3D%2254%22%20r%3D%2226%22%2F%3E%0A%3Ccircle%20cx%3D%22210%22%20cy%3D%22196%22%20r%3D%2234%22%2F%3E%0A%3Cpath%20d%3D%22M0%20230%20C40%20190%2070%20250%20110%20210%20S190%20150%20280%20190%22%2F%3E%0A%3Cpath%20d%3D%22M20%200%20C60%2040%2020%2090%2070%20120%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22%237fa52a%22%20fill-opacity%3D%22.10%22%3E%0A%3Ccircle%20cx%3D%22214%22%20cy%3D%2242%22%20r%3D%224%22%2F%3E%0A%3Ccircle%20cx%3D%22120%22%20cy%3D%22132%22%20r%3D%223%22%2F%3E%0A%3Cpath%20d%3D%22M156%2052%20l4%209%2010%201%20-7%207%202%2010%20-9%20-5%20-9%205%202%20-10%20-7%20-7%2010%20-1z%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%23ec008c%22%20stroke-opacity%3D%22.08%22%20stroke-width%3D%224%22%3E%0A%3Ccircle%20cx%3D%22250%22%20cy%3D%22250%22%20r%3D%2216%22%2F%3E%0A%3Cpath%20d%3D%22M60%20240%20C100%20260%20100%20220%20140%20230%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%22%23ec008c%22%20fill-opacity%3D%22.07%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%22180%22%20r%3D%225%22%2F%3E%3C%2Fg%3E%0A%3C%2Fsvg%3E");
-    background-size: 100% 100%, 280px 280px;
+        radial-gradient(90% 70% at 80% 0%, rgba(166, 206, 57, 0.45), rgba(166, 206, 57, 0) 60%);
     background-attachment: fixed;
     font-family: var(--font-body);
     font-size: 12.5px;
@@ -59,6 +57,78 @@ a:hover {
 img {
     max-width: 100%;
     height: auto;
+}
+
+/* Layered Vectordelia city scene, fixed behind the page */
+.scene {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.scene img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+}
+
+.scene::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg,
+            rgba(234, 247, 198, 0.96) 0%,
+            rgba(234, 247, 198, 0.86) 36%,
+            rgba(234, 247, 198, 0.18) 68%,
+            rgba(234, 247, 198, 0) 100%),
+        linear-gradient(180deg,
+            rgba(234, 247, 198, 0.92) 0%,
+            rgba(234, 247, 198, 0.2) 35%,
+            rgba(234, 247, 198, 0) 60%);
+    pointer-events: none;
+}
+
+.scene-top {
+    position: absolute;
+    inset: 0;
+}
+
+.scene-base {
+    animation: city-rise 0.8s var(--ease) 0.1s both;
+    will-change: transform, opacity;
+}
+
+.scene-top {
+    animation: arrows-in 0.65s var(--ease) 0.9s both;
+    will-change: transform, opacity;
+}
+
+@keyframes city-rise {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes arrows-in {
+    from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.985);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 button,
@@ -299,10 +369,14 @@ strong {
    -------------------------------------------------------------------------- */
 
 .hero {
+    position: relative;
+    min-height: 540px;
     padding: clamp(2.2rem, 6vh, 4rem) 0 clamp(2.4rem, 6vh, 3.8rem);
 }
 
 .hero__copy {
+    position: relative;
+    z-index: 1;
     max-width: 48rem;
 }
 
@@ -1412,6 +1486,12 @@ strong {
     }
 }
 
+@media (max-width: 900px) {
+    .scene {
+        display: none;
+    }
+}
+
 @media (max-width: 760px) {
     .page {
         width: 100%;
@@ -1564,4 +1644,10 @@ strong {
         display: none !important;
     }
 
+    .scene-base,
+    .scene-top {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
 }
