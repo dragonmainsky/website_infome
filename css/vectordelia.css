@@ -140,6 +140,48 @@ img {
     }
 }
 
+/* Random Frutiger Metro arrows that flow in from the edges. */
+.arrow-rain {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.fm-arrow {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--size);
+    color: var(--color);
+    opacity: 0;
+    transform: translate(var(--sx), var(--sy)) rotate(var(--rot)) scale(0.7);
+    animation: arrow-flow var(--dur) cubic-bezier(0.16, 1, 0.3, 1) var(--delay) both;
+    filter: drop-shadow(2px 2px 0 rgba(17, 17, 17, 0.18));
+    will-change: transform, opacity;
+}
+
+.fm-arrow svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@keyframes arrow-flow {
+    0% {
+        opacity: 0;
+        transform: translate(var(--sx), var(--sy)) rotate(var(--rot)) scale(0.7);
+    }
+    30% {
+        opacity: var(--opacity);
+    }
+    100% {
+        opacity: var(--opacity);
+        transform: translate(0, 0) rotate(var(--rot)) scale(1);
+    }
+}
+
 button,
 input,
 select,
@@ -1559,7 +1601,8 @@ strong {
 }
 
 @media (max-width: 900px) {
-    .scene {
+    .scene,
+    .arrow-rain {
         display: none;
     }
 }
@@ -1738,5 +1781,9 @@ strong {
 
     .hero h1 .wg {
         animation: none;
+    }
+
+    .arrow-rain {
+        display: none;
     }
 }

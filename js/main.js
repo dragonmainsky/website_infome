@@ -233,6 +233,47 @@ function splitWiggleText() {
 
 splitWiggleText();
 
+// Scatter random Frutiger Metro arrows that slide in toward the page on arrival.
+function spawnArrows() {
+    const layer = document.querySelector('.arrow-rain');
+    if (!layer || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const colors = ['#a6ce39', '#ec008c', '#111111', '#00c8ff', '#f7941d'];
+    const cx = innerWidth / 2;
+    const cy = innerHeight / 2;
+    const count = innerWidth > 1200 ? 9 : 7;
+
+    for (let i = 0; i < count; i += 1) {
+        const xPct = 4 + Math.random() * 92;
+        const yPct = 8 + Math.random() * 84;
+        const x = innerWidth * (xPct / 100);
+        const y = innerHeight * (yPct / 100);
+        const dx = x - cx;
+        const dy = y - cy;
+        const len = Math.hypot(dx, dy) || 1;
+        const push = 110 + Math.random() * 150;
+        const angle = Math.atan2(cy - y, cx - x) * (180 / Math.PI) + (Math.random() * 36 - 18);
+        const size = 42 + Math.random() * 46;
+        const arrow = document.createElement('div');
+
+        arrow.className = 'fm-arrow';
+        arrow.style.setProperty('--x', `${xPct}%`);
+        arrow.style.setProperty('--y', `${yPct}%`);
+        arrow.style.setProperty('--size', `${size.toFixed(0)}px`);
+        arrow.style.setProperty('--color', colors[i % colors.length]);
+        arrow.style.setProperty('--rot', `${angle.toFixed(1)}deg`);
+        arrow.style.setProperty('--sx', `${(dx / len * push).toFixed(0)}px`);
+        arrow.style.setProperty('--sy', `${(dy / len * push).toFixed(0)}px`);
+        arrow.style.setProperty('--opacity', (0.35 + Math.random() * 0.35).toFixed(2));
+        arrow.style.setProperty('--dur', `${(0.9 + Math.random() * 0.4).toFixed(2)}s`);
+        arrow.style.setProperty('--delay', `${(0.1 + Math.random() * 0.6).toFixed(2)}s`);
+        arrow.innerHTML = '<svg viewBox="0 0 120 80" focusable="false" aria-hidden="true"><path d="M4 30 H62 V8 L116 40 L62 72 V50 H4 Z" fill="currentColor" stroke="#111" stroke-width="6" stroke-linejoin="round"></path></svg>';
+        layer.appendChild(arrow);
+    }
+}
+
+spawnArrows();
+
 // Show the back-to-top button once the page has scrolled a little.
 (() => {
     const toTop = document.getElementById('to-top');
