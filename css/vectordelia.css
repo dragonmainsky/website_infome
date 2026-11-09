@@ -95,27 +95,6 @@ textarea {
         0 0 0 7px var(--ink);
 }
 
-.top-strip {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.7rem;
-    margin-bottom: 8px;
-    padding: 5px 10px;
-    background: var(--ink);
-    border: 1px solid #000000;
-    border-radius: 8px 8px 0 0;
-    color: var(--lime);
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-}
-
-.top-strip span {
-    color: var(--magenta);
-}
-
 /* --------------------------------------------------------------------------
    Accessibility
    -------------------------------------------------------------------------- */
@@ -683,24 +662,6 @@ strong {
     color: var(--magenta);
     font-size: 1.9rem;
     transform: rotate(12deg);
-}
-
-.art-sticker {
-    position: absolute;
-    bottom: 15%;
-    left: -2%;
-    z-index: 5;
-    padding: 5px 9px;
-    background: var(--ink);
-    border: 1px solid #000000;
-    border-radius: 5px;
-    box-shadow: 2px 2px 0 var(--lime);
-    color: var(--lime);
-    font-size: 7px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    transform: rotate(4deg);
 }
 
 .now-playing {
@@ -1742,11 +1703,6 @@ strong {
             0 0 0 5px var(--ink);
     }
 
-    .top-strip {
-        font-size: 6.5px;
-        letter-spacing: 0.12em;
-    }
-
     .wave-divider {
         height: 100px;
         margin: 0 -8px;
@@ -1903,10 +1859,6 @@ strong {
 
     .art-star--1 {
         font-size: 1.9rem;
-    }
-
-    .art-sticker {
-        left: 0;
     }
 
     .section-meta {
