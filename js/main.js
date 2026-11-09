@@ -233,43 +233,60 @@ function splitWiggleText() {
 
 splitWiggleText();
 
-// Scatter random Frutiger Metro arrows that slide in toward the page on arrival.
+// Frutiger Metro arrows gathered around the screen edges, sliding inward on arrival.
 function spawnArrows() {
     const layer = document.querySelector('.arrow-rain');
     if (!layer || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const colors = ['#a6ce39', '#ec008c', '#111111', '#00c8ff', '#f7941d'];
-    const cx = innerWidth / 2;
-    const cy = innerHeight / 2;
-    const count = innerWidth > 1200 ? 9 : 7;
+    const shapes = [
+        '<svg viewBox="0 0 120 80" focusable="false" aria-hidden="true"><path d="M2 28 H60 V8 L118 40 L60 72 V52 H2 Z" fill="currentColor" stroke="#111" stroke-width="6" stroke-linejoin="round"></path></svg>',
+        '<svg viewBox="0 0 120 80" focusable="false" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="square"><path d="M4 8 L36 40 L4 72"></path><path d="M44 8 L76 40 L44 72"></path><path d="M84 8 L116 40 L84 72"></path></g></svg>',
+        '<svg viewBox="0 0 140 80" focusable="false" aria-hidden="true"><g fill="currentColor"><circle cx="10" cy="40" r="6"></circle><circle cx="30" cy="40" r="6"></circle><circle cx="50" cy="40" r="6"></circle><circle cx="70" cy="40" r="6"></circle></g><path d="M86 22 L134 40 L86 58 Z" fill="currentColor" stroke="#111" stroke-width="5" stroke-linejoin="round"></path></svg>',
+        '<svg viewBox="0 0 120 90" focusable="false" aria-hidden="true"><path d="M4 82 C40 82 26 20 78 20" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round"></path><path d="M70 2 L108 20 L70 38 Z" fill="currentColor" stroke="#111" stroke-width="5" stroke-linejoin="round"></path></svg>'
+    ];
+    const colors = ['#111111', '#2d7fa1', '#a6ce39', '#ec008c', '#2d7fa1', '#111111'];
+    const slots = [
+        { side: 'left', x: 2.2, y: 22 },
+        { side: 'left', x: 0.8, y: 50 },
+        { side: 'left', x: 2.8, y: 78 },
+        { side: 'right', x: 92.5, y: 18 },
+        { side: 'right', x: 96, y: 46 },
+        { side: 'right', x: 90.5, y: 74 },
+        { side: 'top', x: 10, y: 12 },
+        { side: 'top', x: 90, y: 12 },
+        { side: 'bottom', x: 10, y: 86 },
+        { side: 'bottom', x: 90, y: 86 }
+    ];
 
-    for (let i = 0; i < count; i += 1) {
-        const xPct = 4 + Math.random() * 92;
-        const yPct = 8 + Math.random() * 84;
-        const x = innerWidth * (xPct / 100);
-        const y = innerHeight * (yPct / 100);
-        const dx = x - cx;
-        const dy = y - cy;
-        const len = Math.hypot(dx, dy) || 1;
-        const push = 110 + Math.random() * 150;
-        const angle = Math.atan2(cy - y, cx - x) * (180 / Math.PI) + (Math.random() * 36 - 18);
-        const size = 42 + Math.random() * 46;
+    slots.forEach((slot, index) => {
+        const type = Math.floor(Math.random() * shapes.length);
+        const sideRot = slot.side === 'left' ? 0
+            : slot.side === 'right' ? 180
+                : slot.side === 'top' ? 90 : -90;
+        const rot = sideRot + (Math.random() * 16 - 8);
+        const size = (type === 1 ? 58 : 46) + Math.random() * 34;
+        const push = 140 + Math.random() * 100;
+        const jitter = Math.random() * 36 - 18;
         const arrow = document.createElement('div');
 
         arrow.className = 'fm-arrow';
-        arrow.style.setProperty('--x', `${xPct}%`);
-        arrow.style.setProperty('--y', `${yPct}%`);
+        arrow.style.setProperty('--x', `${(slot.x + (Math.random() * 4 - 2)).toFixed(2)}%`);
+        arrow.style.setProperty('--y', `${(slot.y + (Math.random() * 4 - 2)).toFixed(2)}%`);
         arrow.style.setProperty('--size', `${size.toFixed(0)}px`);
-        arrow.style.setProperty('--color', colors[i % colors.length]);
-        arrow.style.setProperty('--rot', `${angle.toFixed(1)}deg`);
-        arrow.style.setProperty('--sx', `${(dx / len * push).toFixed(0)}px`);
-        arrow.style.setProperty('--sy', `${(dy / len * push).toFixed(0)}px`);
-        arrow.style.setProperty('--opacity', (0.35 + Math.random() * 0.35).toFixed(2));
+        arrow.style.setProperty('--color', colors[index % colors.length]);
+        arrow.style.setProperty('--rot', `${rot.toFixed(1)}deg`);
+        arrow.style.setProperty('--sx', slot.side === 'left'
+            ? `${(-push).toFixed(0)}px`
+            : slot.side === 'right' ? `${push.toFixed(0)}px` : `${jitter.toFixed(0)}px`);
+        arrow.style.setProperty('--sy', slot.side === 'top'
+            ? `${(-push).toFixed(0)}px`
+            : slot.side === 'bottom' ? `${push.toFixed(0)}px` : `${jitter.toFixed(0)}px`);
+        arrow.style.setProperty('--opacity', (0.32 + Math.random() * 0.3).toFixed(2));
         arrow.style.setProperty('--dur', `${(0.9 + Math.random() * 0.4).toFixed(2)}s`);
         arrow.style.setProperty('--delay', `${(0.1 + Math.random() * 0.6).toFixed(2)}s`);
-        arrow.innerHTML = '<svg viewBox="0 0 120 80" focusable="false" aria-hidden="true"><path d="M4 30 H62 V8 L116 40 L62 72 V50 H4 Z" fill="currentColor" stroke="#111" stroke-width="6" stroke-linejoin="round"></path></svg>';
+        arrow.innerHTML = shapes[type];
         layer.appendChild(arrow);
-    }
+    });
 }
 
 spawnArrows();
