@@ -94,36 +94,45 @@ img {
     pointer-events: none;
 }
 
-.scene-top {
+.scene-city {
+    clip-path: inset(100% 0 0 0);
+    animation: city-rise 1s var(--ease) 0.1s both;
+    will-change: clip-path, opacity;
+}
+
+.scene-arrow {
     position: absolute;
     inset: 0;
-}
-
-.scene-base {
-    animation: city-rise 0.8s var(--ease) 0.1s both;
+    opacity: 0;
+    animation: arrow-in 0.45s var(--ease) both;
     will-change: transform, opacity;
 }
 
-.scene-top {
-    animation: arrows-in 0.65s var(--ease) 0.9s both;
-    will-change: transform, opacity;
+.scene-arrow--main {
+    animation-delay: 0.95s;
+}
+
+.scene-arrow--sign {
+    animation-delay: 1.05s;
+}
+
+.scene-arrow--right {
+    animation-delay: 1.15s;
 }
 
 @keyframes city-rise {
     from {
-        opacity: 0;
-        transform: translateY(22px);
+        clip-path: inset(100% 0 0 0);
     }
     to {
-        opacity: 1;
-        transform: none;
+        clip-path: inset(0 0 0 0);
     }
 }
 
-@keyframes arrows-in {
+@keyframes arrow-in {
     from {
         opacity: 0;
-        transform: translateY(14px) scale(0.985);
+        transform: translateY(10px) scale(0.97);
     }
     to {
         opacity: 1;
@@ -1644,9 +1653,10 @@ strong {
         display: none !important;
     }
 
-    .scene-base,
-    .scene-top {
+    .scene-city,
+    .scene-arrow {
         animation: none;
+        clip-path: none;
         opacity: 1;
         transform: none;
     }
