@@ -1,13 +1,82 @@
 /* ==========================================================================
    SUNSHINE / FULL AERO
    Live portfolio theme — sky, glass, water and light.
-   Built on css/aero-tokens.css. Personal, non-commercial project.
+   Personal, non-commercial project.
    ========================================================================== */
 
 :root {
-    --accent: var(--aero-sun-500);
-    --ink: var(--aero-ink-800);
-    --paper: #f8feff;
+    color-scheme: light;
+
+    --aero-font-ui:
+        "Segoe UI Variable Text", "Segoe UI", "Source Sans 3", "Trebuchet MS",
+        system-ui, sans-serif;
+    --aero-font-display:
+        "Segoe UI Variable Display", "Segoe UI Light", "Segoe UI",
+        "Source Sans 3", "Trebuchet MS", system-ui, sans-serif;
+
+    --aero-ink-300: #7c9bae;
+    --aero-ink-500: #467089;
+    --aero-ink-600: #295a74;
+    --aero-ink-700: #15445f;
+    --aero-ink-800: #0b324e;
+    --aero-ink-900: #08283f;
+    --aero-text: var(--aero-ink-800);
+
+    --aero-sky-300: #93e2fb;
+    --aero-sky-400: #59caf3;
+    --aero-sky-500: #2fa9e2;
+    --aero-sky-600: #178bc8;
+    --aero-sky-700: #0d6d9f;
+    --aero-lime-500: #85d923;
+    --aero-sun-400: #ffc04a;
+    --aero-sun-500: #ffa31f;
+    --aero-sun-600: #ef7f00;
+    --aero-sun-700: #b85a00;
+
+    --aero-link: #09699e;
+    --aero-link-hover: #064d77;
+
+    --aero-ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --aero-ease-glass: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Liquid glass surfaces */
+    --aero-liquid-specular: linear-gradient(
+        116deg,
+        rgba(255, 255, 255, 0.82) 0%,
+        rgba(255, 255, 255, 0.18) 18%,
+        rgba(255, 255, 255, 0) 44%
+    );
+    --aero-liquid-edge:
+        inset 0 1px 0 rgba(255, 255, 255, 0.98),
+        inset 0 -1px 0 rgba(70, 164, 199, 0.24),
+        inset 0 22px 44px -36px rgba(255, 255, 255, 0.95);
+    --aero-liquid-rim: conic-gradient(
+        from 145deg at 50% 50%,
+        rgba(255, 255, 255, 0.98) 0deg,
+        rgba(158, 240, 255, 0.55) 58deg,
+        rgba(255, 255, 255, 0.18) 132deg,
+        rgba(255, 255, 255, 0.9) 218deg,
+        rgba(255, 219, 168, 0.45) 286deg,
+        rgba(255, 255, 255, 0.98) 360deg
+    );
+    --aero-glass-fill:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+    --aero-glass-rim:
+        inset 1.5px 1.5px 1px -1px rgba(255, 255, 255, 0.95),
+        inset -1.5px -1.5px 1px -1px rgba(255, 255, 255, 0.55),
+        inset 0 0 22px rgba(255, 255, 255, 0.16),
+        inset 0 -14px 22px -16px rgba(30, 160, 220, 0.28);
+    --aero-glass-shadow: 0 12px 30px -14px rgba(3, 54, 86, 0.38);
+    --aero-glass-spec: radial-gradient(
+        60% 170% at calc(50% + var(--aero-px, 0) * 38%) -25%,
+        rgba(255, 255, 255, 0.5),
+        transparent 62%
+    );
+
+    /* Pointer position, updated by js/main.js */
+    --aero-px: 0;
+    --aero-py: 0;
+
     --header-offset: 16px;
     --panel-radius: 26px;
 }
@@ -130,18 +199,6 @@ textarea {
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, 0);
-}
-
-.visually-hidden {
-    position: absolute !important;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    border: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -304,31 +361,20 @@ textarea {
     padding: 0.6rem 0.7rem 0.6rem 1.05rem;
     border: 1px solid rgba(255, 255, 255, 0.72);
     border-radius: 22px;
-    background:
-        var(--aero-liquid-wash),
-        var(--aero-liquid-specular),
-        linear-gradient(180deg,
-            rgba(255, 255, 255, 0.7) 0%,
-            rgba(226, 249, 255, 0.48) 54%,
-            rgba(184, 236, 255, 0.58) 100%);
-    box-shadow:
-        0 24px 58px -24px rgba(3, 54, 86, 0.66),
-        0 8px 20px -12px rgba(4, 60, 92, 0.24),
-        var(--aero-liquid-edge);
-    -webkit-backdrop-filter: blur(14px) saturate(170%);
-    backdrop-filter: blur(14px) saturate(170%);
+    background: var(--aero-glass-spec), var(--aero-glass-fill);
+    box-shadow: var(--aero-glass-shadow), var(--aero-glass-rim);
+    -webkit-backdrop-filter: blur(5px) saturate(190%) brightness(1.06);
+    backdrop-filter: blur(5px) saturate(190%) brightness(1.06);
     transition:
         background 220ms var(--aero-ease-standard),
         box-shadow 220ms var(--aero-ease-standard);
 }
 
 .site-header.is-scrolled .header-inner {
-    background:
-        var(--aero-liquid-wash),
-        var(--aero-liquid-specular),
+    background: var(--aero-glass-spec),
         linear-gradient(180deg,
-            rgba(255, 255, 255, 0.9) 0%,
-            rgba(230, 251, 255, 0.72) 100%);
+            rgba(255, 255, 255, 0.34) 0%,
+            rgba(255, 255, 255, 0.12) 100%);
     box-shadow:
         0 26px 60px -24px rgba(3, 54, 86, 0.72),
         0 8px 20px -12px rgba(4, 60, 92, 0.24),
@@ -381,15 +427,8 @@ textarea {
     padding: 0.25rem;
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 16px;
-    background:
-        var(--aero-liquid-specular),
-        linear-gradient(180deg,
-            rgba(255, 255, 255, 0.44) 0%,
-            rgba(205, 243, 255, 0.2) 100%);
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.85),
-        inset 0 -1px 0 rgba(22, 107, 146, 0.14),
-        0 6px 18px -12px rgba(3, 54, 86, 0.3);
+    background: var(--aero-glass-fill);
+    box-shadow: var(--aero-glass-rim);
 }
 
 .nav-btn {
@@ -451,10 +490,6 @@ textarea {
 
 .nav-btn.is-active i {
     color: #ffffff;
-}
-
-.nav-index {
-    display: none;
 }
 
 /* A single-pixel iridescent rim, drawn above the glass fill.
@@ -812,16 +847,13 @@ h4 {
     padding: 0.85rem 1.1rem;
     border: 1px solid rgba(255, 255, 255, 0.68);
     border-radius: 17px;
-    background:
-        var(--aero-liquid-wash),
-        var(--aero-liquid-specular),
+    background: var(--aero-glass-spec),
         linear-gradient(180deg,
-            rgba(255, 255, 255, 0.8) 0%,
-            rgba(211, 245, 255, 0.62) 100%);
-    box-shadow:
-        0 20px 42px -28px rgba(3, 54, 86, 0.62),
-        0 6px 16px -12px rgba(3, 54, 86, 0.2),
-        var(--aero-liquid-edge);
+            rgba(255, 255, 255, 0.42) 0%,
+            rgba(255, 255, 255, 0.2) 100%);
+    box-shadow: var(--aero-glass-shadow), var(--aero-glass-rim);
+    -webkit-backdrop-filter: blur(5px) saturate(190%) brightness(1.06);
+    backdrop-filter: blur(5px) saturate(190%) brightness(1.06);
 }
 
 .section-kicker {
@@ -871,19 +903,13 @@ h4 {
     padding: 7.35rem 1.3rem 1.2rem;
     border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 19px;
-    background:
-        radial-gradient(130% 85% at 6% 104%,
-            rgba(122, 230, 250, 0.3) 0%,
-            rgba(122, 230, 250, 0) 58%),
-        var(--aero-liquid-specular),
+    background: var(--aero-liquid-specular),
         linear-gradient(180deg,
-            rgba(255, 255, 255, 0.9) 0%,
-            rgba(240, 253, 255, 0.8) 50%,
-            rgba(216, 246, 255, 0.82) 100%);
-    box-shadow:
-        var(--aero-liquid-shadow),
-        inset 0 1px 0 rgba(255, 255, 255, 0.98),
-        inset 0 -1px 0 rgba(70, 164, 199, 0.2);
+            rgba(255, 255, 255, 0.62) 0%,
+            rgba(235, 251, 255, 0.42) 100%);
+    box-shadow: var(--aero-glass-shadow), var(--aero-glass-rim);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    backdrop-filter: blur(8px) saturate(180%);
     transition:
         transform 220ms var(--aero-ease-standard),
         box-shadow 220ms var(--aero-ease-standard);
@@ -939,11 +965,9 @@ h4 {
 .project:hover {
     transform: translateY(-4px);
     box-shadow:
-        0 40px 74px -30px rgba(3, 54, 86, 0.72),
-        0 12px 26px -16px rgba(3, 54, 86, 0.28),
-        inset 0 1px 0 rgba(255, 255, 255, 0.98),
-        inset 0 -1px 0 rgba(70, 164, 199, 0.22),
-        0 0 42px rgba(139, 238, 255, 0.28);
+        0 26px 50px -22px rgba(3, 54, 86, 0.5),
+        var(--aero-glass-rim),
+        0 0 36px rgba(139, 238, 255, 0.25);
 }
 
 .project-index {
@@ -1255,19 +1279,8 @@ h4 {
     padding: var(--cert-pad);
     border: 1px solid rgba(255, 255, 255, 0.82);
     border-radius: 18px;
-    background:
-        var(--aero-liquid-specular),
-        radial-gradient(120% 130% at 92% 116%,
-            rgba(255, 214, 150, 0.22) 0%,
-            rgba(255, 214, 150, 0) 56%),
-        linear-gradient(160deg,
-            rgba(255, 255, 255, 0.95) 0%,
-            rgba(236, 252, 255, 0.84) 52%,
-            rgba(205, 241, 255, 0.9) 100%);
-    box-shadow:
-        var(--aero-liquid-shadow),
-        inset 0 1px 0 #ffffff,
-        inset 0 -1px 0 rgba(70, 164, 199, 0.2);
+    background: var(--aero-glass-fill);
+    box-shadow: var(--aero-glass-shadow), var(--aero-glass-rim);
 }
 
 .cert-frame::after {
@@ -1601,25 +1614,14 @@ h4 {
     padding: 0.9rem 1.15rem;
     border: 1px solid rgba(163, 236, 255, 0.34);
     border-radius: 15px;
-    background:
-        linear-gradient(116deg,
-            rgba(196, 246, 255, 0.18) 0%,
-            rgba(196, 246, 255, 0.04) 24%,
-            rgba(196, 246, 255, 0) 50%),
-        radial-gradient(130% 180% at 10% -46%,
-            rgba(154, 240, 255, 0.24) 0%,
-            rgba(154, 240, 255, 0) 62%),
+    background: var(--aero-glass-spec),
         linear-gradient(180deg,
-            rgba(11, 58, 86, 0.68) 0%,
-            rgba(4, 31, 51, 0.78) 100%);
-    box-shadow:
-        0 22px 48px -24px rgba(2, 27, 44, 0.76),
-        inset 0 1px 0 rgba(214, 250, 255, 0.36),
-        inset 0 -1px 0 rgba(3, 22, 36, 0.3),
-        0 0 30px rgba(139, 238, 255, 0.12);
+            rgba(11, 58, 86, 0.52) 0%,
+            rgba(4, 31, 51, 0.66) 100%);
+    box-shadow: var(--aero-glass-shadow), var(--aero-glass-rim);
     color: rgba(240, 253, 255, 0.78);
-    -webkit-backdrop-filter: blur(12px) saturate(150%);
-    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(5px) saturate(190%) brightness(1.06);
+    backdrop-filter: blur(5px) saturate(190%) brightness(1.06);
 }
 
 .footer-brand {
@@ -2160,76 +2162,3 @@ h4 {
     }
 }
 
-/* ==========================================================================
-   Liquid Glass override pass (keep at the end of the file)
-   ========================================================================== */
-:root {
-  --lg-fill: linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,.05));
-  --lg-rim:
-    inset 1.5px 1.5px 1px -1px rgba(255,255,255,.95),
-    inset -1.5px -1.5px 1px -1px rgba(255,255,255,.55),
-    inset 0 0 22px rgba(255,255,255,.16),
-    inset 0 -14px 22px -16px rgba(30,160,220,.28);
-  --lg-shadow: 0 12px 30px -14px rgba(3,54,86,.38);
-  --lg-spec: radial-gradient(60% 170% at calc(50% + var(--aero-px, 0) * 38%) -25%,
-      rgba(255,255,255,.5), transparent 62%);
-}
-
-.header-inner,
-.site-header.is-scrolled .header-inner,
-.section-head,
-.footer-card {
-  background: var(--lg-spec), var(--lg-fill);
-  box-shadow: var(--lg-shadow), var(--lg-rim);
-  -webkit-backdrop-filter: blur(5px) saturate(190%) brightness(1.06);
-  backdrop-filter: blur(5px) saturate(190%) brightness(1.06);
-}
-
-/* Slightly more body once scrolled, so text under it stays calm */
-.site-header.is-scrolled .header-inner {
-  background: var(--lg-spec),
-    linear-gradient(180deg, rgba(255,255,255,.34), rgba(255,255,255,.12));
-}
-
-/* Nested inside .header-inner, so no backdrop-filter here */
-.nav { background: var(--lg-fill); box-shadow: var(--lg-rim); }
-
-.project {
-  background: var(--aero-liquid-specular),
-    linear-gradient(180deg, rgba(255,255,255,.62), rgba(235,251,255,.42));
-  box-shadow: var(--lg-shadow), var(--lg-rim);
-  -webkit-backdrop-filter: blur(8px) saturate(180%);
-  backdrop-filter: blur(8px) saturate(180%);
-}
-.project:hover {
-  box-shadow: 0 26px 50px -22px rgba(3,54,86,.5), var(--lg-rim),
-              0 0 36px rgba(139,238,255,.25);
-}
-
-.cert-frame {
-  background: var(--lg-fill);
-  box-shadow: var(--lg-shadow), var(--lg-rim);
-}
-
-/* Section heads: a little more body so the small labels stay readable */
-.section-head {
-  background: var(--lg-spec),
-    linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,.2));
-}
-
-/* Footer stays dark-tinted glass so its white text remains readable */
-.footer-card {
-  background:
-    var(--lg-spec),
-    linear-gradient(180deg, rgba(11,58,86,.52), rgba(4,31,51,.66));
-  box-shadow: var(--lg-shadow), var(--lg-rim);
-}
-
-/* Chromium only: real refraction (class added by aero-world.js) */
-.lg-refract .header-inner,
-.lg-refract .site-header.is-scrolled .header-inner,
-.lg-refract .section-head,
-.lg-refract .footer-card {
-  -webkit-backdrop-filter: url(#lg-refract) blur(3px) saturate(190%) brightness(1.06);
-  backdrop-filter: url(#lg-refract) blur(3px) saturate(190%) brightness(1.06);
-}
