@@ -10,9 +10,6 @@ making Frutiger Aero-themed collages, images and edits.
 
 | Local file | Archive file | Use |
 | --- | --- | --- |
-| `wave-bubbles.webp` | `metro_1.png` | Decorative divider above the footer |
-| `halftone-sphere.webp` | `metro_37.png` | Hero background texture |
-| `splat-black.webp` | `metro_31.png` | Hero background grunge accent |
 | `stars-halftone.webp` | `metro_62.png` | Footer decoration |
 | `star-target.webp` | `metro_73.png` | Section-head icon |
 | `flourish.webp` | `metro_60.png` | About panel accent |
