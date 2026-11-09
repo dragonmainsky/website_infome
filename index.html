@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <script>
         document.documentElement.classList.add('js');
+        // The intro must always start from the top; stop the browser from
+        // restoring the previous scroll position after a refresh.
+        // Hide the UI before first paint when the 3D intro is about to play,
+        // so there is no flash of the finished layout.
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            document.documentElement.classList.add('intro-pending');
+        }
+        // Failsafe in case the main script never boots.
+        window.setTimeout(function () {
+            document.documentElement.classList.remove('intro-pending');
+        }, 4000);
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOS — Computer Science &amp; Cybersecurity Portfolio | SUNSHINE</title>
@@ -26,7 +40,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700;800&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/vectordelia.css?v=26">
+    <link rel="stylesheet" href="css/vectordelia.css?v=34">
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -79,7 +93,6 @@
 
                 <div class="hero">
                     <div class="hero__copy">
-                        <span class="kicker" data-reveal><span class="kicker__dot" aria-hidden="true"></span>Sunshine / Profile 001</span>
                         <h1 id="home-title" data-reveal data-wiggle aria-label="Hello! I'm MOS">
                             <span class="line">Hello!</span>
                             <span class="line">I'm <mark>MOS</mark></span>
@@ -95,11 +108,6 @@
                                 <i class="fa-solid fa-award" aria-hidden="true"></i> My Certificate
                             </button>
                         </div>
-                        <ul class="hero__chips" data-reveal="soft" aria-label="Focus areas">
-                            <li>Network Engineering</li>
-                            <li>Cybersecurity</li>
-                            <li>CTF Competitions</li>
-                        </ul>
                     </div>
 
                 </div>
@@ -109,7 +117,6 @@
                         <span class="section-kicker">Selected / 003</span>
                         <h2>Featured work &amp; projects</h2>
                     </div>
-                    <span class="section-meta">Open source / CTF / tooling</span>
                 </div>
 
                 <div class="projects">
@@ -186,7 +193,6 @@
                                 <h2 id="certificate-title" data-reveal data-decode>Thailand Cyber Top Talent 2026</h2>
                                 <p class="panel-head__lede" data-reveal="soft">National Cyber Security Agency (NCSA) &amp; Huawei • Thailand National Cyber Academy</p>
                             </div>
-                            <span class="verified-badge" data-reveal="soft"><span class="verified-badge__dot" aria-hidden="true"></span> Verified / 2026</span>
                         </div>
 
                         <div class="cert-layout">
@@ -363,6 +369,11 @@
         <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
     </button>
 
-    <script src="js/main.js?v=21"></script>
+    <button class="intro-skip" id="intro-skip" type="button">
+        <span>Skip intro</span>
+        <kbd>Esc</kbd>
+    </button>
+
+    <script src="js/main.js?v=24"></script>
 </body>
 </html>

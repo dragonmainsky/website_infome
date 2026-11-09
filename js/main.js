@@ -6,6 +6,68 @@ const DECODE_GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#/+';
 let decodeTimer = 0;
 const revealFallbackTimers = new WeakMap();
 
+// ---------------------------------------------------------------------------
+// Full-page 3D entrance. Plays on every page load; after it ends the page
+// behaves exactly like before and every tab keeps its normal reveal.
+// ---------------------------------------------------------------------------
+const INTRO_MS = 3200; // keep in sync with the CSS animation timings
+const introMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const introRoot = document.documentElement;
+const introSkip = document.getElementById('intro-skip');
+let introPlaying = false;
+let introTimer = 0;
+
+function onIntroKey(event) {
+    if (event.key === 'Escape') finishIntro();
+}
+
+function finishIntro() {
+    if (!introPlaying) return;
+
+    introPlaying = false;
+    window.clearTimeout(introTimer);
+    document.removeEventListener('keydown', onIntroKey);
+
+    const skipFocused = document.activeElement === introSkip;
+    introRoot.classList.add('intro-out');
+    introRoot.classList.remove('intro');
+    window.setTimeout(() => introRoot.classList.remove('intro-out'), 360);
+
+    if ('scrollRestoration' in history) history.scrollRestoration = 'auto';
+
+    const active = document.querySelector('.tab-content.active');
+    if (active) {
+        active.classList.remove('is-entering', 'is-revealing');
+        active.classList.add('is-revealed');
+    }
+
+    if (skipFocused) {
+        const main = document.getElementById('main-content');
+        if (main) main.focus({ preventScroll: true });
+    }
+
+    scheduleActiveDecode(160);
+}
+
+function startIntro() {
+    introRoot.classList.remove('intro-pending');
+
+    if (introMotion.matches) return false;
+
+    introPlaying = true;
+    introRoot.classList.add('intro');
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => window.scrollTo(0, 0));
+    window.addEventListener('load', () => {
+        if (introPlaying) window.scrollTo(0, 0);
+    }, { once: true });
+    introTimer = window.setTimeout(finishIntro, INTRO_MS);
+    document.addEventListener('keydown', onIntroKey);
+
+    if (introSkip) introSkip.addEventListener('click', finishIntro);
+    return true;
+}
+
 // Briefly replace a heading with fixed-width scrambled glyphs, then lock it in.
 function decodeHeading(el, { delay = 0, duration = 640 } = {}) {
     if (!el || el.dataset.decoded === 'true' || decodeMotion.matches) return;
@@ -99,15 +161,19 @@ function scheduleActiveDecode(delay = 180) {
     decodeTimer = window.setTimeout(() => decodeActiveTab(), delay);
 }
 
-function switchTab(tabName, updateHistory = true) {
+function switchTab(tabName, updateHistory = true, options = {}) {
     const target = document.getElementById('tab-' + tabName);
     if (!target) return;
+
+    // While the 3D intro owns the screen, the panel animates through the
+    // intro keyframes instead of replaying the small tab reveal.
+    const reveal = options.reveal !== false && !introPlaying;
 
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
 
     // Prepare the incoming tab while it is still hidden, then show it.
     target.classList.add('is-entering');
-    prepareReveal(target, true);
+    if (reveal) prepareReveal(target, true);
     target.classList.add('active');
 
     document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -140,7 +206,7 @@ function switchTab(tabName, updateHistory = true) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
 
-    scheduleActiveDecode(180);
+    if (reveal) scheduleActiveDecode(180);
 }
 
 // Map the current URL hash to a tab name, falling back to home.
@@ -181,10 +247,12 @@ function prepareReveal(section, restart) {
 
 // Open the tab named in the URL hash (e.g. index.html#certificate).
 window.addEventListener('DOMContentLoaded', () => {
+    const introStarted = startIntro();
     const name = tabFromHash();
+
     if (name !== 'home') {
-        switchTab(name, false);
-    } else {
+        switchTab(name, false, { reveal: !introStarted });
+    } else if (!introStarted) {
         prepareReveal(document.getElementById('tab-home'), false);
         scheduleActiveDecode(120);
     }
