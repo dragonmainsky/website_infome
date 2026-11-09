@@ -156,8 +156,8 @@ img {
     width: var(--size);
     color: var(--color);
     opacity: 0;
-    transform: translate(var(--sx), var(--sy)) rotate(var(--rot)) scale(0.7);
-    animation: arrow-flow var(--dur) cubic-bezier(0.16, 1, 0.3, 1) var(--delay) both;
+    transform: translate(var(--sx), var(--sy)) rotate(var(--rot)) scale(0.8);
+    animation: arrow-flow var(--dur) cubic-bezier(0.16, 1, 0.3, 1) var(--delay) infinite;
     filter: drop-shadow(2px 2px 0 rgba(17, 17, 17, 0.18));
     will-change: transform, opacity;
 }
@@ -171,13 +171,16 @@ img {
 @keyframes arrow-flow {
     0% {
         opacity: 0;
-        transform: translate(var(--sx), var(--sy)) rotate(var(--rot)) scale(0.7);
+        transform: translate(var(--sx), var(--sy)) rotate(var(--rot)) scale(0.8);
     }
-    30% {
+    10% {
+        opacity: var(--opacity);
+    }
+    78% {
         opacity: var(--opacity);
     }
     100% {
-        opacity: var(--opacity);
+        opacity: 0;
         transform: translate(0, 0) rotate(var(--rot)) scale(1);
     }
 }

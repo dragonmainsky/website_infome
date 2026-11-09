@@ -246,27 +246,24 @@ function spawnArrows() {
     ];
     const colors = ['#111111', '#2d7fa1', '#111111', '#4f97b5', '#2d7fa1', '#111111'];
     const slots = [
-        { side: 'left', x: 2.2, y: 22 },
-        { side: 'left', x: 0.8, y: 50 },
-        { side: 'left', x: 2.8, y: 78 },
-        { side: 'right', x: 92.5, y: 18 },
-        { side: 'right', x: 96, y: 46 },
-        { side: 'right', x: 90.5, y: 74 },
-        { side: 'top', x: 10, y: 12 },
-        { side: 'top', x: 90, y: 12 },
-        { side: 'bottom', x: 10, y: 86 },
-        { side: 'bottom', x: 90, y: 86 }
+        { side: 'left', x: 3.5, y: 14 },
+        { side: 'left', x: 5, y: 32 },
+        { side: 'left', x: 4.5, y: 50 },
+        { side: 'left', x: 6, y: 68 },
+        { side: 'left', x: 5.5, y: 86 },
+        { side: 'right', x: 94, y: 18 },
+        { side: 'right', x: 95, y: 36 },
+        { side: 'right', x: 93.5, y: 54 },
+        { side: 'right', x: 94.5, y: 72 },
+        { side: 'right', x: 93, y: 90 }
     ];
 
     slots.forEach((slot, index) => {
         const type = Math.floor(Math.random() * shapes.length);
-        const sideRot = slot.side === 'left' ? 0
-            : slot.side === 'right' ? 180
-                : slot.side === 'top' ? 90 : -90;
-        const rot = sideRot + (Math.random() * 16 - 8);
-        const size = (type === 1 ? 58 : 46) + Math.random() * 34;
-        const push = 140 + Math.random() * 100;
-        const jitter = Math.random() * 36 - 18;
+        const rot = (slot.side === 'left' ? 0 : 180) + (Math.random() * 12 - 6);
+        const size = (type === 1 ? 66 : 56) + Math.random() * 40;
+        const push = 240 + Math.random() * 140;
+        const jitter = Math.random() * 24 - 12;
         const arrow = document.createElement('div');
         const color = colors[index % colors.length];
         const opacity = color === '#111111'
@@ -274,20 +271,16 @@ function spawnArrows() {
             : 0.62 + Math.random() * 0.18;
 
         arrow.className = 'fm-arrow';
-        arrow.style.setProperty('--x', `${(slot.x + (Math.random() * 4 - 2)).toFixed(2)}%`);
-        arrow.style.setProperty('--y', `${(slot.y + (Math.random() * 4 - 2)).toFixed(2)}%`);
+        arrow.style.setProperty('--x', `${(slot.x + (Math.random() * 3 - 1.5)).toFixed(2)}%`);
+        arrow.style.setProperty('--y', `${(slot.y + (Math.random() * 3 - 1.5)).toFixed(2)}%`);
         arrow.style.setProperty('--size', `${size.toFixed(0)}px`);
         arrow.style.setProperty('--color', color);
         arrow.style.setProperty('--rot', `${rot.toFixed(1)}deg`);
-        arrow.style.setProperty('--sx', slot.side === 'left'
-            ? `${(-push).toFixed(0)}px`
-            : slot.side === 'right' ? `${push.toFixed(0)}px` : `${jitter.toFixed(0)}px`);
-        arrow.style.setProperty('--sy', slot.side === 'top'
-            ? `${(-push).toFixed(0)}px`
-            : slot.side === 'bottom' ? `${push.toFixed(0)}px` : `${jitter.toFixed(0)}px`);
+        arrow.style.setProperty('--sx', `${(slot.side === 'left' ? -push : push).toFixed(0)}px`);
+        arrow.style.setProperty('--sy', `${jitter.toFixed(0)}px`);
         arrow.style.setProperty('--opacity', opacity.toFixed(2));
-        arrow.style.setProperty('--dur', `${(0.9 + Math.random() * 0.4).toFixed(2)}s`);
-        arrow.style.setProperty('--delay', `${(0.1 + Math.random() * 0.6).toFixed(2)}s`);
+        arrow.style.setProperty('--dur', `${(3.4 + Math.random() * 1.4).toFixed(2)}s`);
+        arrow.style.setProperty('--delay', `${(0.1 + Math.random() * 1.2).toFixed(2)}s`);
         arrow.innerHTML = shapes[type];
         layer.appendChild(arrow);
     });
