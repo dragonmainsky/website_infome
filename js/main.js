@@ -244,7 +244,7 @@ function spawnArrows() {
         '<svg viewBox="0 0 140 80" focusable="false" aria-hidden="true"><g fill="currentColor"><circle cx="10" cy="40" r="6"></circle><circle cx="30" cy="40" r="6"></circle><circle cx="50" cy="40" r="6"></circle><circle cx="70" cy="40" r="6"></circle></g><path d="M86 22 L134 40 L86 58 Z" fill="currentColor" stroke="#111" stroke-width="5" stroke-linejoin="round"></path></svg>',
         '<svg viewBox="0 0 120 90" focusable="false" aria-hidden="true"><path d="M4 82 C40 82 26 20 78 20" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round"></path><path d="M70 2 L108 20 L70 38 Z" fill="currentColor" stroke="#111" stroke-width="5" stroke-linejoin="round"></path></svg>'
     ];
-    const colors = ['#111111', '#2d7fa1', '#a6ce39', '#ec008c', '#2d7fa1', '#111111'];
+    const colors = ['#111111', '#2d7fa1', '#111111', '#4f97b5', '#2d7fa1', '#111111'];
     const slots = [
         { side: 'left', x: 2.2, y: 22 },
         { side: 'left', x: 0.8, y: 50 },
@@ -268,12 +268,16 @@ function spawnArrows() {
         const push = 140 + Math.random() * 100;
         const jitter = Math.random() * 36 - 18;
         const arrow = document.createElement('div');
+        const color = colors[index % colors.length];
+        const opacity = color === '#111111'
+            ? 0.8 + Math.random() * 0.15
+            : 0.62 + Math.random() * 0.18;
 
         arrow.className = 'fm-arrow';
         arrow.style.setProperty('--x', `${(slot.x + (Math.random() * 4 - 2)).toFixed(2)}%`);
         arrow.style.setProperty('--y', `${(slot.y + (Math.random() * 4 - 2)).toFixed(2)}%`);
         arrow.style.setProperty('--size', `${size.toFixed(0)}px`);
-        arrow.style.setProperty('--color', colors[index % colors.length]);
+        arrow.style.setProperty('--color', color);
         arrow.style.setProperty('--rot', `${rot.toFixed(1)}deg`);
         arrow.style.setProperty('--sx', slot.side === 'left'
             ? `${(-push).toFixed(0)}px`
@@ -281,7 +285,7 @@ function spawnArrows() {
         arrow.style.setProperty('--sy', slot.side === 'top'
             ? `${(-push).toFixed(0)}px`
             : slot.side === 'bottom' ? `${push.toFixed(0)}px` : `${jitter.toFixed(0)}px`);
-        arrow.style.setProperty('--opacity', (0.32 + Math.random() * 0.3).toFixed(2));
+        arrow.style.setProperty('--opacity', opacity.toFixed(2));
         arrow.style.setProperty('--dur', `${(0.9 + Math.random() * 0.4).toFixed(2)}s`);
         arrow.style.setProperty('--delay', `${(0.1 + Math.random() * 0.6).toFixed(2)}s`);
         arrow.innerHTML = shapes[type];
