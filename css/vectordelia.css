@@ -57,6 +57,7 @@ a:hover {
 
 img {
     max-width: 100%;
+    height: auto;
 }
 
 button,
@@ -536,6 +537,28 @@ strong {
     );
 }
 
+.art-halftone-img {
+    position: absolute;
+    top: 1%;
+    right: -3%;
+    z-index: 0;
+    width: min(520px, 96%);
+    opacity: 0.12;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+
+.art-splat-img {
+    position: absolute;
+    bottom: 13%;
+    left: -7%;
+    z-index: 0;
+    width: min(370px, 72%);
+    opacity: 0.14;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+
 .art-vines {
     position: absolute;
     z-index: 1;
@@ -767,7 +790,12 @@ strong {
     border-radius: 6px;
     box-shadow: 2px 2px 0 var(--ink);
     color: var(--ink);
-    font-size: 13px;
+}
+
+.section-icon img {
+    display: block;
+    width: 21px;
+    height: auto;
 }
 
 .section-title {
@@ -1174,6 +1202,28 @@ strong {
    About
    -------------------------------------------------------------------------- */
 
+.panel--about .panel__body {
+    position: relative;
+}
+
+.panel--about .panel__body::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    z-index: 0;
+    width: 110px;
+    height: 110px;
+    background: url("../images/vectordelia/flourish.webp") center / contain no-repeat;
+    opacity: 0.16;
+    pointer-events: none;
+}
+
+.panel--about .panel__body > * {
+    position: relative;
+    z-index: 1;
+}
+
 .about-head {
     display: grid;
     grid-template-columns: 220px minmax(0, 1fr);
@@ -1401,6 +1451,22 @@ strong {
    Footer
    -------------------------------------------------------------------------- */
 
+.wave-divider {
+    position: relative;
+    z-index: 1;
+    height: 132px;
+    margin: 0 -14px;
+    overflow: hidden;
+}
+
+.wave-divider img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 62%;
+}
+
 .site-footer {
     position: relative;
     z-index: 1;
@@ -1437,6 +1503,23 @@ strong {
     );
 }
 
+.footer-stars {
+    position: absolute;
+    right: 8px;
+    bottom: -18px;
+    z-index: 0;
+    width: 150px;
+    height: auto;
+    filter: invert(1);
+    opacity: 0.22;
+    pointer-events: none;
+}
+
+.footer-card > *:not(.footer-stars) {
+    position: relative;
+    z-index: 1;
+}
+
 .footer-brand {
     display: flex;
     align-items: center;
@@ -1470,6 +1553,15 @@ strong {
     color: rgba(255, 255, 255, 0.68);
     font-size: 8px;
     line-height: 1.5;
+}
+
+.footer-credit a {
+    color: var(--lime);
+    text-decoration-color: rgba(166, 206, 57, 0.55);
+}
+
+.footer-credit a:hover {
+    color: var(--lime-bright);
 }
 
 .footer-meta {
@@ -1653,6 +1745,25 @@ strong {
     .top-strip {
         font-size: 6.5px;
         letter-spacing: 0.12em;
+    }
+
+    .wave-divider {
+        height: 100px;
+        margin: 0 -8px;
+    }
+
+    .footer-stars {
+        width: 110px;
+    }
+
+    .art-halftone-img {
+        display: none;
+    }
+
+    .art-splat-img {
+        left: -12%;
+        width: 68%;
+        opacity: 0.1;
     }
 
     .header-inner {
