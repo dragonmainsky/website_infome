@@ -256,6 +256,9 @@ textarea {
     position: sticky;
     top: 10px;
     z-index: 20;
+    /* Reserve the sticky offset in the flow so the bar never sits on top
+       of the panel chrome when the page is at its scroll origin. */
+    margin-top: 10px;
     padding-top: 16px;
 }
 
@@ -385,8 +388,9 @@ main {
     #tab-info.active {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         min-height: calc(100vh - 170px);
+        padding: 0.35rem 0 0.9rem;
     }
 }
 
@@ -889,7 +893,7 @@ strong {
     overflow: hidden;
     width: 100%;
     max-width: 960px;
-    margin: 0 auto 1.2rem;
+    margin: clamp(10px, 2.4vh, 24px) auto 1.2rem;
     background: #ffffff;
     border: 1px solid var(--ink);
     border-radius: 12px;
@@ -1042,6 +1046,28 @@ strong {
     margin: 0 auto;
 }
 
+/* Certificate + metadata side by side, so the whole document fits on a
+   laptop screen instead of being cut off below the fold. */
+@media (min-width: 900px) {
+    .cert-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
+        gap: clamp(18px, 2.6vw, 28px);
+        align-items: start;
+    }
+
+    .cert-layout .facts {
+        grid-template-columns: 1fr;
+        margin: 0;
+    }
+
+    .cert-layout .cert-frame {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+}
+
 .cert-frame {
     --cert-pad: 8px;
     position: relative;
@@ -1053,6 +1079,13 @@ strong {
     box-shadow: 3px 3px 0 var(--lime);
 }
 
+.cert-frame__link {
+    display: block;
+    border-radius: 4px;
+    color: inherit;
+    text-decoration: none;
+}
+
 .cert-frame img {
     display: block;
     width: 100%;
@@ -1060,6 +1093,13 @@ strong {
     background: #ffffff;
     border: 1px solid #d8d2bf;
     border-radius: 4px;
+    transition: border-color 140ms var(--ease), filter 140ms var(--ease);
+}
+
+.cert-frame__link:hover img,
+.cert-frame__link:focus-visible img {
+    border-color: var(--green-deep);
+    filter: contrast(1.03);
 }
 
 .cert-frame figcaption {
@@ -1074,6 +1114,22 @@ strong {
     letter-spacing: 0.1em;
     line-height: 1.4;
     text-transform: uppercase;
+}
+
+.cert-frame__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.cert-frame__link:hover + figcaption .cert-frame__cta,
+.cert-frame__cta:hover,
+.cert-frame__cta:focus-visible {
+    color: var(--green-deep);
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 
 /* --------------------------------------------------------------------------
@@ -1597,7 +1653,9 @@ strong {
     .project p {
         max-width: 62ch;
     }
+}
 
+@media (max-width: 899px) {
     .cert-layout .facts {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
