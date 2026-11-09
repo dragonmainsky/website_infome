@@ -9,10 +9,9 @@
     <title>MOS — Computer Science &amp; Cybersecurity Portfolio | SUNSHINE</title>
     <meta name="description" content="SUNSHINE portfolio of MOS, a 19-year-old Computer Science student at Mahasarakham University focused on network engineering, cybersecurity and CTF competitions.">
     <meta name="author" content="MOS">
-    <meta name="theme-color" content="#2FA9E2">
+    <meta name="theme-color" content="#3F7D12">
     <meta name="color-scheme" content="light">
-    <link rel="icon" type="image/svg+xml" href="images/favicon.svg?v=7">
-    <link rel="preload" href="images/aero/bg-sky-hills.webp" as="image" fetchpriority="high">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg?v=8">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="SUNSHINE / MOS Portfolio">
@@ -25,335 +24,388 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700;800&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/aero.css?v=8">
+    <link rel="stylesheet" href="css/vectordelia.css?v=1">
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
 
-    <!-- Fixed Full Aero atmosphere: sky, sun glow, clouds and bubbles. -->
-    <div class="aero-world" aria-hidden="true">
-        <img class="aero-world__sky" src="images/aero/bg-sky-hills.webp" alt="" width="2400" height="1350" fetchpriority="high" decoding="async">
-        <span class="aero-world__glow"></span>
-        <span class="aero-cloud aero-cloud--far">
-            <img src="images/aero/fg-cloud.webp" alt="" width="1200" height="665" loading="lazy" decoding="async">
-        </span>
-        <span class="aero-cloud aero-cloud--near">
-            <img src="images/aero/fg-cloud.webp" alt="" width="1200" height="665" loading="lazy" decoding="async">
-        </span>
-        <span class="aero-bubbles">
-            <img src="images/aero/fg-bubbles.webp" alt="" width="1000" height="1146" loading="lazy" decoding="async">
-        </span>
-        <span class="aero-world__veil"></span>
-    </div>
+    <div class="page">
 
-    <header class="site-header" id="site-header">
-        <div class="header-inner">
-            <a class="brand" href="#" onclick="switchTab('home'); return false;" title="SUNSHINE — home">
-                <span class="brand-copy">
-                    <span class="brand-name">SUNSHINE</span>
-                    <span class="brand-sub">Full Aero / Portfolio</span>
-                </span>
-            </a>
-
-            <nav class="nav" aria-label="Main">
-                <button onclick="switchTab('home')" id="nav-home" class="nav-btn is-active" aria-current="page" title="Home">
-                    <i class="fa-solid fa-house" aria-hidden="true"></i>
-                    <span>Home</span>
-                </button>
-                <button onclick="switchTab('certificate')" id="nav-certificate" class="nav-btn" title="My Certificate">
-                    <i class="fa-solid fa-award" aria-hidden="true"></i>
-                    <span>My Certificate</span>
-                </button>
-                <button onclick="switchTab('about')" id="nav-about" class="nav-btn" title="About me">
-                    <i class="fa-solid fa-user-astronaut" aria-hidden="true"></i>
-                    <span>About me</span>
-                </button>
-                <button onclick="switchTab('info')" id="nav-info" class="nav-btn" title="Info Me">
-                    <i class="fa-solid fa-id-card" aria-hidden="true"></i>
-                    <span>Info Me</span>
-                </button>
-            </nav>
+        <div class="top-strip" aria-hidden="true">
+            <span>★</span> Sunshine / Vectordelia Portfolio <span>★</span> Est. 2026 <span>★</span>
         </div>
-    </header>
 
-    <main id="main-content" tabindex="-1">
+        <header class="site-header" id="site-header">
+            <div class="header-inner">
+                <a class="brand" href="#" onclick="switchTab('home'); return false;" title="SUNSHINE — home">
+                    <span class="brand-mark" aria-hidden="true">★</span>
+                    <span class="brand-copy">
+                        <span class="brand-name">SUNSHINE</span>
+                        <span class="brand-sub">Vectordelia / Portfolio</span>
+                    </span>
+                </a>
 
-        <!-- ============ HOME ============ -->
-        <section id="tab-home" class="tab-content active is-entering" aria-labelledby="home-title">
-
-            <div class="hero">
-                <div class="hero__copy">
-                    <span class="kicker" data-reveal><span class="kicker__dot" aria-hidden="true"></span>Sunshine / Profile 001</span>
-                    <h1 id="home-title" data-reveal data-decode>Hello! I'm MOS</h1>
-                    <p class="hero__lede" data-reveal="soft">
-                        19 years old Computer Science student at <strong>Mahasarakham University</strong> with a strong passion for <strong>Network Engineering</strong> and <strong>Cybersecurity CTF competitions</strong>.
-                    </p>
-                    <div class="actions">
-                        <a class="btn btn-primary" data-reveal="soft" href="https://github.com/dragonmainsky" target="_blank" rel="noopener">
-                            <i class="fa-brands fa-github" aria-hidden="true"></i> View GitHub Profile
-                        </a>
-                        <button class="btn btn-glass" data-reveal="soft" onclick="switchTab('certificate')">
-                            <i class="fa-solid fa-award" aria-hidden="true"></i> My Certificate
-                        </button>
-                    </div>
-                    <ul class="hero__chips" data-reveal="soft" aria-label="Focus areas">
-                        <li>Network Engineering</li>
-                        <li>Cybersecurity</li>
-                        <li>CTF Competitions</li>
-                    </ul>
-                </div>
+                <nav class="nav" aria-label="Main">
+                    <button onclick="switchTab('home')" id="nav-home" class="nav-btn is-active" aria-current="page" title="Home">
+                        <i class="fa-solid fa-house" aria-hidden="true"></i>
+                        <span>Home</span>
+                    </button>
+                    <button onclick="switchTab('certificate')" id="nav-certificate" class="nav-btn" title="My Certificate">
+                        <i class="fa-solid fa-award" aria-hidden="true"></i>
+                        <span>My Certificate</span>
+                    </button>
+                    <button onclick="switchTab('about')" id="nav-about" class="nav-btn" title="About me">
+                        <i class="fa-solid fa-user-astronaut" aria-hidden="true"></i>
+                        <span>About me</span>
+                    </button>
+                    <button onclick="switchTab('info')" id="nav-info" class="nav-btn" title="Info Me">
+                        <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+                        <span>Info Me</span>
+                    </button>
+                </nav>
             </div>
+        </header>
 
-            <div class="section-head" data-reveal>
-                <div>
-                    <span class="section-kicker">Selected / 003</span>
-                    <h2>Featured work &amp; projects</h2>
-                </div>
-                <span class="section-meta">Open source / CTF / tooling</span>
-            </div>
+        <main id="main-content" tabindex="-1">
 
-            <div class="projects">
+            <!-- ============ HOME ============ -->
+            <section id="tab-home" class="tab-content active is-entering" aria-labelledby="home-title">
 
-                <article class="project project--network" data-reveal>
-                    <span class="project-index" aria-hidden="true">01</span>
-                    <span class="project-icon" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></span>
-                    <div class="project__body">
-                        <span class="tag"><i class="fa-solid fa-network-wired" aria-hidden="true"></i> Networking project</span>
-                        <h3>share-web-and-files</h3>
-                        <p>
-                            A lightweight network utility designed for sharing files and hosting temporary web content across local network environments. Built for fast deployment and socket distribution.
+                <div class="hero">
+                    <div class="hero__copy">
+                        <span class="kicker" data-reveal><span class="kicker__dot" aria-hidden="true"></span>Sunshine / Profile 001</span>
+                        <h1 id="home-title" data-reveal>
+                            <span class="line">Hello!</span>
+                            <span class="line">I'm <mark>MOS</mark></span>
+                        </h1>
+                        <p class="hero__lede" data-reveal="soft">
+                            19 years old Computer Science student at <strong>Mahasarakham University</strong> with a strong passion for <strong>Network Engineering</strong> and <strong>Cybersecurity CTF competitions</strong>.
                         </p>
-                    </div>
-                    <div class="project-foot">
-                        <span>Python / Network Sockets</span>
-                        <a href="https://github.com/dragonmainsky/share-web-and-files" target="_blank" rel="noopener">Open repo <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-                    </div>
-                </article>
-
-                <article class="project project--ctf" data-reveal>
-                    <span class="project-index" aria-hidden="true">02</span>
-                    <span class="project-icon" aria-hidden="true"><i class="fa-solid fa-flag"></i></span>
-                    <div class="project__body">
-                        <span class="tag"><i class="fa-solid fa-flag" aria-hidden="true"></i> CTF competition</span>
-                        <h3>Thailand Cyber Top Talent 2026</h3>
-                        <p>
-                            Competed in Thailand's official national cybersecurity competition organized by NCSA and Huawei, solving network packet analysis, web exploitation, and forensic challenges.
-                        </p>
-                    </div>
-                    <div class="project-foot">
-                        <span>Team: Ah-rai wa</span>
-                        <button class="link-btn" onclick="switchTab('certificate')">View certificate</button>
-                    </div>
-                </article>
- 
-                <article class="project project--skill" data-reveal>
-                    <span class="project-index" aria-hidden="true">03</span>
-                    <span class="project-icon" aria-hidden="true"><i class="fa-solid fa-terminal"></i></span>
-                    <div class="project__body">
-                        <span class="tag"><i class="fa-solid fa-terminal" aria-hidden="true"></i> CTF agent skill</span>
-                        <h3>ctf-skill-sunshine</h3>
-                        <p>
-                            A portable AI-agent skill that automates CTFd challenge fetching and flag submission, provides playbooks for seven CTF categories, verifies external tools with SHA-256, and produces detailed Thai writeups.
-                        </p>
-                    </div>
-                    <div class="project-foot">
-                        <span>Python / Agent Skill / CTFd</span>
-                        <a href="https://github.com/dragonmainsky/ctf-skill-sunshine" target="_blank" rel="noopener">Open repo <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-                    </div>
-                </article>
-
-            </div>
-        </section>
-
-        <!-- ============ CERTIFICATE ============ -->
-        <section id="tab-certificate" class="tab-content" aria-labelledby="certificate-title">
-            <div class="panel panel--cert">
-                <div class="panel__chrome" aria-hidden="true">
-                    <span class="panel__title">My Certificate</span>
-                    <span class="panel__meta">CERT-2026-RDE28N</span>
-                </div>
-
-                <div class="panel__body">
-                    <div class="panel-head">
-                        <div>
-                            <span class="tag" data-reveal="soft"><i class="fa-solid fa-award" aria-hidden="true"></i> Senior category</span>
-                            <h2 id="certificate-title" data-reveal data-decode>Thailand Cyber Top Talent 2026</h2>
-                            <p class="panel-head__lede" data-reveal="soft">National Cyber Security Agency (NCSA) &amp; Huawei • Thailand National Cyber Academy</p>
+                        <div class="actions">
+                            <a class="btn btn-primary" data-reveal="soft" href="https://github.com/dragonmainsky" target="_blank" rel="noopener">
+                                <i class="fa-brands fa-github" aria-hidden="true"></i> View GitHub Profile
+                            </a>
+                            <button class="btn btn-glass" data-reveal="soft" onclick="switchTab('certificate')">
+                                <i class="fa-solid fa-award" aria-hidden="true"></i> My Certificate
+                            </button>
                         </div>
-                        <span class="verified-badge" data-reveal="soft"><span class="verified-badge__dot" aria-hidden="true"></span> Verified / 2026</span>
+                        <ul class="hero__chips" data-reveal="soft" aria-label="Focus areas">
+                            <li>Network Engineering</li>
+                            <li>Cybersecurity</li>
+                            <li>CTF Competitions</li>
+                        </ul>
                     </div>
 
-                    <div class="cert-layout">
-                        <dl class="facts">
+                    <div class="hero-art" aria-hidden="true">
+
+                        <div class="art-sun"></div>
+
+                        <svg class="art-vines" viewBox="0 0 520 520" focusable="false">
+                            <g fill="none" stroke-linecap="round">
+                                <path d="M40 420 C120 340 40 280 120 220 S240 190 220 90" stroke="#111111" stroke-width="8"></path>
+                                <path d="M80 470 C180 400 120 320 220 280 S340 260 360 150" stroke="#ec008c" stroke-width="7"></path>
+                                <path d="M460 80 C380 120 440 200 360 240" stroke="#111111" stroke-width="6" opacity="0.8"></path>
+                            </g>
+                            <g fill="#b5e61d" stroke="#111111" stroke-width="3">
+                                <circle cx="220" cy="90" r="10"></circle>
+                                <circle cx="360" cy="240" r="8"></circle>
+                            </g>
+                            <g fill="#ec008c" stroke="#111111" stroke-width="3">
+                                <circle cx="120" cy="220" r="9"></circle>
+                                <circle cx="360" cy="150" r="7"></circle>
+                            </g>
+                        </svg>
+
+                        <svg class="art-blob" viewBox="0 0 460 420" focusable="false">
+                            <path d="M222 16c62 0 126 28 150 78 24 50 8 118-30 160-38 42-104 66-164 54C118 296 62 252 42 196 22 140 34 72 80 42 118 18 172 16 222 16Z"
+                                  fill="#ec008c" stroke="#111111" stroke-width="6"></path>
+                        </svg>
+
+                        <div class="art-halftone"></div>
+                        <span class="art-ring art-ring--1"></span>
+                        <span class="art-ring art-ring--2"></span>
+
+                        <div class="art-disc"></div>
+
+                        <svg class="art-arrow" viewBox="0 0 220 120" focusable="false">
+                            <path d="M8 44 H108 V14 L204 60 L108 106 V76 H8 Z"
+                                  fill="#ffffff" stroke="#111111" stroke-width="7"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+
+                        <span class="art-star art-star--1">★</span>
+                        <span class="art-star art-star--2">★</span>
+                        <span class="art-sticker">CTF / NETWORK / 2026</span>
+
+                        <div class="now-playing">
+                            <span class="np-play"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
+                            <span>Now playing: Vectordelia Mix</span>
+                            <span class="np-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="section-head" data-reveal>
+                    <span class="section-icon" aria-hidden="true">★</span>
+                    <div class="section-title">
+                        <span class="section-kicker">Selected / 003</span>
+                        <h2>Featured work &amp; projects</h2>
+                    </div>
+                    <span class="section-meta">Open source / CTF / tooling</span>
+                </div>
+
+                <div class="projects">
+
+                    <article class="project project--network" data-reveal>
+                        <div class="project__art">
+                            <span class="project-index" aria-hidden="true">01</span>
+                            <span class="project-icon" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></span>
+                        </div>
+                        <div class="project__body">
+                            <span class="tag"><i class="fa-solid fa-network-wired" aria-hidden="true"></i> Networking project</span>
+                            <h3>share-web-and-files</h3>
+                            <p>
+                                A lightweight network utility designed for sharing files and hosting temporary web content across local network environments. Built for fast deployment and socket distribution.
+                            </p>
+                        </div>
+                        <div class="project-foot">
+                            <span>Python / Network Sockets</span>
+                            <a href="https://github.com/dragonmainsky/share-web-and-files" target="_blank" rel="noopener">Open repo <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="project project--ctf" data-reveal>
+                        <div class="project__art">
+                            <span class="project-index" aria-hidden="true">02</span>
+                            <span class="project-icon" aria-hidden="true"><i class="fa-solid fa-flag"></i></span>
+                        </div>
+                        <div class="project__body">
+                            <span class="tag"><i class="fa-solid fa-flag" aria-hidden="true"></i> CTF competition</span>
+                            <h3>Thailand Cyber Top Talent 2026</h3>
+                            <p>
+                                Competed in Thailand's official national cybersecurity competition organized by NCSA and Huawei, solving network packet analysis, web exploitation, and forensic challenges.
+                            </p>
+                        </div>
+                        <div class="project-foot">
+                            <span>Team: Ah-rai wa</span>
+                            <button class="link-btn" onclick="switchTab('certificate')">View certificate</button>
+                        </div>
+                    </article>
+
+                    <article class="project project--skill" data-reveal>
+                        <div class="project__art">
+                            <span class="project-index" aria-hidden="true">03</span>
+                            <span class="project-icon" aria-hidden="true"><i class="fa-solid fa-terminal"></i></span>
+                        </div>
+                        <div class="project__body">
+                            <span class="tag"><i class="fa-solid fa-terminal" aria-hidden="true"></i> CTF agent skill</span>
+                            <h3>ctf-skill-sunshine</h3>
+                            <p>
+                                A portable AI-agent skill that automates CTFd challenge fetching and flag submission, provides playbooks for seven CTF categories, verifies external tools with SHA-256, and produces detailed Thai writeups.
+                            </p>
+                        </div>
+                        <div class="project-foot">
+                            <span>Python / Agent Skill / CTFd</span>
+                            <a href="https://github.com/dragonmainsky/ctf-skill-sunshine" target="_blank" rel="noopener">Open repo <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- ============ CERTIFICATE ============ -->
+            <section id="tab-certificate" class="tab-content" aria-labelledby="certificate-title">
+                <div class="panel panel--cert">
+                    <div class="panel__chrome" aria-hidden="true">
+                        <span class="panel__title">My Certificate</span>
+                        <span class="panel__meta">CERT-2026-RDE28N</span>
+                    </div>
+
+                    <div class="panel__body">
+                        <div class="panel-head">
                             <div>
-                                <dt>Recipient</dt>
-                                <dd lang="th">นาย สุรศาสตร์ จันทะกัลยา</dd>
+                                <span class="tag" data-reveal="soft"><i class="fa-solid fa-award" aria-hidden="true"></i> Senior category</span>
+                                <h2 id="certificate-title" data-reveal data-decode>Thailand Cyber Top Talent 2026</h2>
+                                <p class="panel-head__lede" data-reveal="soft">National Cyber Security Agency (NCSA) &amp; Huawei • Thailand National Cyber Academy</p>
+                            </div>
+                            <span class="verified-badge" data-reveal="soft"><span class="verified-badge__dot" aria-hidden="true"></span> Verified / 2026</span>
+                        </div>
+
+                        <div class="cert-layout">
+                            <dl class="facts">
+                                <div>
+                                    <dt>Recipient</dt>
+                                    <dd lang="th">นาย สุรศาสตร์ จันทะกัลยา</dd>
+                                </div>
+                                <div>
+                                    <dt>Team name</dt>
+                                    <dd>Ah-rai wa</dd>
+                                </div>
+                                <div>
+                                    <dt>Presented date</dt>
+                                    <dd>15 August 2026</dd>
+                                </div>
+                                <div>
+                                    <dt>Competition</dt>
+                                    <dd>NCSA CTF Tournament</dd>
+                                </div>
+                                <div>
+                                    <dt>Certificate code</dt>
+                                    <dd>CERT-2026-RDE28N</dd>
+                                </div>
+                            </dl>
+
+                            <figure class="cert-frame" data-reveal="grow">
+                                <img src="images/Certificate_CERT-2026-RDE28N.png" alt="Thailand Cyber Top Talent 2026 certificate awarded to Surasat Chanthakalyaa" width="2000" height="1414" loading="lazy" decoding="async">
+                                <figcaption>
+                                    <span>Certificate / original</span>
+                                    <span>CERT-2026-RDE28N</span>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ ABOUT ============ -->
+            <section id="tab-about" class="tab-content" aria-labelledby="about-title">
+                <div class="panel panel--about">
+                    <div class="panel__chrome" aria-hidden="true">
+                        <span class="panel__title">About Me</span>
+                    </div>
+
+                    <div class="panel__body">
+                        <div class="about-head">
+                            <div class="avatar-wrap" data-reveal="soft">
+                                <img class="avatar" src="images/127975405.jpg" alt="MOS profile sketch" width="400" height="400" loading="lazy" decoding="async">
+                                <span class="avatar-badge" aria-hidden="true">SUNSHINE / 2026</span>
+                            </div>
+                            <div class="about-copy">
+                                <h2 id="about-title" data-reveal data-decode>MOS</h2>
+                                <p class="about-copy__lede" data-reveal="soft"><strong>19 years old</strong> • Computer Science major at <strong>Mahasarakham University</strong></p>
+                                <p data-reveal="soft">
+                                    Studying network protocols, server configuration, and practical cybersecurity. Active in CTF security tournaments and open-source file sharing network developments.
+                                </p>
+                                <ul class="about-tags" data-reveal="soft" aria-label="Focus areas">
+                                    <li>Computer Science</li>
+                                    <li>Networking</li>
+                                    <li>Cyber Security</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <dl class="facts facts--about">
+                            <div>
+                                <dt>University</dt>
+                                <dd>Mahasarakham University (MSU)</dd>
                             </div>
                             <div>
-                                <dt>Team name</dt>
-                                <dd>Ah-rai wa</dd>
-                            </div>
-                            <div>
-                                <dt>Presented date</dt>
-                                <dd>15 August 2026</dd>
-                            </div>
-                            <div>
-                                <dt>Competition</dt>
-                                <dd>NCSA CTF Tournament</dd>
-                            </div>
-                            <div>
-                                <dt>Certificate code</dt>
-                                <dd>CERT-2026-RDE28N</dd>
+                                <dt>Focus areas</dt>
+                                <dd>Computer Science, Networking, Cyber Security</dd>
                             </div>
                         </dl>
-
-                        <figure class="cert-frame" data-reveal="grow">
-                            <img src="images/Certificate_CERT-2026-RDE28N.png" alt="Thailand Cyber Top Talent 2026 certificate awarded to Surasat Chanthakalyaa" width="2000" height="1414" loading="lazy" decoding="async">
-                            <figcaption>
-                                <span>Certificate / original</span>
-                                <span>CERT-2026-RDE28N</span>
-                            </figcaption>
-                        </figure>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- ============ ABOUT ============ -->
-        <section id="tab-about" class="tab-content" aria-labelledby="about-title">
-            <div class="panel panel--about">
-                <div class="panel__chrome" aria-hidden="true">
-                    <span class="panel__title">About Me</span>
-                </div>
-
-                <div class="panel__body">
-                    <div class="about-head">
-                        <div class="avatar-wrap" data-reveal="soft">
-                            <img class="avatar" src="images/127975405.jpg" alt="MOS profile sketch" width="400" height="400" loading="lazy" decoding="async">
-                            <span class="avatar-badge" aria-hidden="true">SUNSHINE / 2026</span>
-                        </div>
-                        <div class="about-copy">
-                            <h2 id="about-title" data-reveal data-decode>MOS</h2>
-                            <p class="about-copy__lede" data-reveal="soft"><strong>19 years old</strong> • Computer Science major at <strong>Mahasarakham University</strong></p>
-                            <p data-reveal="soft">
-                                Studying network protocols, server configuration, and practical cybersecurity. Active in CTF security tournaments and open-source file sharing network developments.
-                            </p>
-                            <ul class="about-tags" data-reveal="soft" aria-label="Focus areas">
-                                <li>Computer Science</li>
-                                <li>Networking</li>
-                                <li>Cyber Security</li>
-                            </ul>
-                        </div>
+            <!-- ============ INFO ME ============ -->
+            <section id="tab-info" class="tab-content" aria-labelledby="info-title">
+                <div class="panel panel--info">
+                    <div class="panel__chrome" aria-hidden="true">
+                        <span class="panel__title">Info Me</span>
                     </div>
 
-                    <dl class="facts facts--about">
-                        <div>
-                            <dt>University</dt>
-                            <dd>Mahasarakham University (MSU)</dd>
+                    <div class="panel__body">
+                        <div class="info-head">
+                            <div>
+                                <h2 id="info-title" data-reveal data-decode>Info Me</h2>
+                                <p data-reveal="soft">
+                                    Find me across the platforms I use for security practice, learning, and creative work.
+                                </p>
+                            </div>
                         </div>
-                        <div>
-                            <dt>Focus areas</dt>
-                            <dd>Computer Science, Networking, Cyber Security</dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-        </section>
 
-        <!-- ============ INFO ME ============ -->
-        <section id="tab-info" class="tab-content" aria-labelledby="info-title">
-            <div class="panel panel--info">
-                <div class="panel__chrome" aria-hidden="true">
-                    <span class="panel__title">Info Me</span>
-                </div>
+                        <ul class="profile-links" aria-label="Online profiles">
+                            <li data-reveal="soft">
+                                <a class="profile-link profile-link--facebook" href="https://www.facebook.com/surasat.chanthakalyaa/" target="_blank" rel="noopener noreferrer">
+                                    <span class="profile-link__icon" aria-hidden="true">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                    </span>
+                                    <span class="profile-link__body">
+                                        <span class="profile-link__label">Facebook</span>
+                                        <span class="profile-link__meta">Surasat Chanthakalyaa</span>
+                                    </span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square profile-link__arrow" aria-hidden="true"></i>
+                                </a>
+                            </li>
 
-                <div class="panel__body">
-                    <div class="info-head">
-                        <div>
-                            <h2 id="info-title" data-reveal data-decode>Info Me</h2>
-                            <p data-reveal="soft">
-                                Find me across the platforms I use for security practice, learning, and creative work.
-                            </p>
-                        </div>
+                            <li data-reveal="soft">
+                                <a class="profile-link profile-link--x" href="https://x.com/dragonmagm70700" target="_blank" rel="noopener noreferrer">
+                                    <span class="profile-link__icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                            <path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.2l-4.9-6.4L6.5 22H3.4l7.3-8.3L2.8 2h6.4l4.4 5.8L18.9 2Zm-1.1 17.9h1.7L8.3 4H6.5l11.3 15.9Z"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="profile-link__body">
+                                        <span class="profile-link__label">X</span>
+                                        <span class="profile-link__meta">dragonmagm70700</span>
+                                        <span class="profile-link__note">Art commission coming soon</span>
+                                    </span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square profile-link__arrow" aria-hidden="true"></i>
+                                </a>
+                            </li>
+
+                            <li data-reveal="soft">
+                                <a class="profile-link profile-link--htb" href="https://profile.hackthebox.com/profile/01a09145-66db-71aa-9630-552d8ac1460a?utm_medium=copy_url" target="_blank" rel="noopener noreferrer">
+                                    <span class="profile-link__icon" aria-hidden="true">
+                                        <i class="fa-solid fa-cube"></i>
+                                    </span>
+                                    <span class="profile-link__body">
+                                        <span class="profile-link__label">Hack The Box</span>
+                                        <span class="profile-link__meta">CTF profile</span>
+                                    </span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square profile-link__arrow" aria-hidden="true"></i>
+                                </a>
+                            </li>
+
+                            <li data-reveal="soft">
+                                <a class="profile-link profile-link--cisco" href="https://learningnetwork.cisco.com/s/profile/005QO00000II3Zl" target="_blank" rel="noopener noreferrer">
+                                    <span class="profile-link__icon" aria-hidden="true">
+                                        <i class="fa-solid fa-network-wired"></i>
+                                    </span>
+                                    <span class="profile-link__body">
+                                        <span class="profile-link__label">Cisco Learning Network</span>
+                                        <span class="profile-link__meta">Learning profile</span>
+                                    </span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square profile-link__arrow" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-
-                    <ul class="profile-links" aria-label="Online profiles">
-                        <li data-reveal="soft">
-                            <a class="profile-link profile-link--facebook" href="https://www.facebook.com/surasat.chanthakalyaa/" target="_blank" rel="noopener noreferrer">
-                                <span class="profile-link__icon" aria-hidden="true">
-                                    <i class="fa-brands fa-facebook-f"></i>
-                                </span>
-                                <span class="profile-link__body">
-                                    <span class="profile-link__label">Facebook</span>
-                                    <span class="profile-link__meta">Surasat Chanthakalyaa</span>
-                                </span>
-                                <i class="fa-solid fa-arrow-up-right-from-square profile-link__arrow" aria-hidden="true"></i>
-                            </a>
-                        </li>
-
-                        <li data-reveal="soft">
-                            <a class="profile-link profile-link--x" href="https://x.com/dragonmagm70700" target="_blank" rel="noopener noreferrer">
-                                <span class="profile-link__icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                                        <path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.2l-4.9-6.4L6.5 22H3.4l7.3-8.3L2.8 2h6.4l4.4 5.8L18.9 2Zm-1.1 17.9h1.7L8.3 4H6.5l11.3 15.9Z"></path>
-                                    </svg>
-                                </span>
-                                <span class="profile-link__body">
-                                    <span class="profile-link__label">X</span>
-                                    <span class="profile-link__meta">dragonmagm70700</span>
-                                    <span class="profile-link__note">Art commission coming soon</span>
-                                </span>
-                                <i class="fa-solid fa-arrow-up-right-from-square profile-link__arrow" aria-hidden="true"></i>
-                            </a>
-                        </li>
-
-                        <li data-reveal="soft">
-                            <a class="profile-link profile-link--htb" href="https://profile.hackthebox.com/profile/01a09145-66db-71aa-9630-552d8ac1460a?utm_medium=copy_url" target="_blank" rel="noopener noreferrer">
-                                <span class="profile-link__icon" aria-hidden="true">
-                                    <i class="fa-solid fa-cube"></i>
-                                </span>
-                                <span class="profile-link__body">
-                                    <span class="profile-link__label">Hack The Box</span>
-                                    <span class="profile-link__meta">CTF profile</span>
-                                </span>
-                                <i class="fa-solid fa-arrow-up-right-from-square profile-link__arrow" aria-hidden="true"></i>
-                            </a>
-                        </li>
-
-                        <li data-reveal="soft">
-                            <a class="profile-link profile-link--cisco" href="https://learningnetwork.cisco.com/s/profile/005QO00000II3Zl" target="_blank" rel="noopener noreferrer">
-                                <span class="profile-link__icon" aria-hidden="true">
-                                    <i class="fa-solid fa-network-wired"></i>
-                                </span>
-                                <span class="profile-link__body">
-                                    <span class="profile-link__label">Cisco Learning Network</span>
-                                    <span class="profile-link__meta">Learning profile</span>
-                                </span>
-                                <i class="fa-solid fa-arrow-up-right-from-square profile-link__arrow" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                    </ul>
                 </div>
+            </section>
+
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-card">
+                <p class="footer-brand">
+                    <span><strong>SUNSHINE</strong><span>Vectordelia / Portfolio</span></span>
+                </p>
+                <p class="footer-credit">Personal, non-commercial portfolio. Built with CSS and SVG.</p>
+                <span class="footer-meta">Green × Magenta / Best viewed 1280×800</span>
             </div>
-        </section>
+        </footer>
 
-    </main>
-
-    <footer class="site-footer">
-        <div class="footer-card">
-            <p class="footer-brand">
-                <span><strong>SUNSHINE</strong><span>Full Aero / Portfolio</span></span>
-            </p>
-            <p class="footer-credit">Imagery by Perfect Hue Design / Frutiger Aero Archive. Personal, non-commercial use.</p>
-        </div>
-    </footer>
+    </div>
 
     <button class="to-top" id="to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Back to top" title="Back to top">
         <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
     </button>
 
-    <script src="js/main.js?v=8"></script>
+    <script src="js/main.js?v=9"></script>
 </body>
 </html>
