@@ -454,24 +454,38 @@ strong {
 .hero h1 .wg {
     display: inline-block;
     transform-origin: 50% 82%;
-    animation: text-wiggle 1.9s ease-in-out infinite;
-    animation-delay: calc(var(--wg-i, 0) * 45ms);
+    animation: text-wiggle 1.1s steps(1, end) infinite;
+    animation-delay: calc(var(--wg-i, 0) * -73ms);
     will-change: transform;
 }
 
 @keyframes text-wiggle {
-    0%,
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    12.5% {
+        transform: translate(-3px, -5px) rotate(-5deg) scale(1.02);
+    }
+    25% {
+        transform: translate(4px, 2px) rotate(6deg) scale(0.98);
+    }
+    37.5% {
+        transform: translate(-5px, 1px) rotate(-3deg) scale(1.03);
+    }
+    50% {
+        transform: translate(2px, -4px) rotate(4deg) scale(0.99);
+    }
+    62.5% {
+        transform: translate(-2px, 4px) rotate(-6deg) scale(1.01);
+    }
+    75% {
+        transform: translate(5px, -2px) rotate(3deg) scale(0.98);
+    }
+    87.5% {
+        transform: translate(-4px, -3px) rotate(-4deg) scale(1.02);
+    }
     100% {
-        transform: translateY(0) rotate(0deg);
-    }
-    20% {
-        transform: translateY(-6px) rotate(-3deg);
-    }
-    45% {
-        transform: translateY(1px) rotate(2deg);
-    }
-    70% {
-        transform: translateY(-3px) rotate(-1.5deg);
+        transform: translate(0, 0) rotate(0deg) scale(1);
     }
 }
 
