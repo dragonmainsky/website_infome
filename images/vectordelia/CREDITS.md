@@ -15,7 +15,6 @@ making Frutiger Aero-themed collages, images and edits.
 | `arrow-sign.webp` | `metro_44.png` (derived) | Arrow inside the yellow sign |
 | `arrow-right.webp` | `metro_44.png` (derived) | Yellow arrow on the right |
 | `stars-halftone.webp` | `metro_62.png` | Footer decoration |
-| `star-target.webp` | `metro_73.png` | Section-head icon |
 | `flourish.webp` | `metro_60.png` | About panel accent |
 
 `scene-city.webp` is the original image with the arrow regions removed and the white

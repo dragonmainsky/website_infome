@@ -623,25 +623,6 @@ strong {
     color: #ffffff;
 }
 
-.section-icon {
-    display: grid;
-    place-items: center;
-    flex: none;
-    width: 28px;
-    height: 28px;
-    background: var(--lime);
-    border: 1px solid var(--ink);
-    border-radius: 6px;
-    box-shadow: 2px 2px 0 var(--ink);
-    color: var(--ink);
-}
-
-.section-icon img {
-    display: block;
-    width: 21px;
-    height: auto;
-}
-
 .section-title {
     min-width: 0;
 }
@@ -878,13 +859,6 @@ strong {
     background: var(--green-deep);
     border-bottom: 1px solid #21480a;
     color: #ffffff;
-}
-
-.panel__chrome::before {
-    content: "★";
-    color: var(--lime);
-    font-size: 11px;
-    line-height: 1;
 }
 
 .panel__title {
