@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <script>
-        document.documentElement.classList.add('js');
         // The intro must always start from the top; stop the browser from
         // restoring the previous scroll position after a refresh.
         // Hide the UI before first paint when the 3D intro is about to play,
@@ -38,9 +37,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700;800&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700&family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/vectordelia.css?v=38">
+    <link rel="stylesheet" href="css/vectordelia.css?v=39">
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -56,7 +55,7 @@
 
     <div class="page">
 
-        <header class="site-header" id="site-header">
+        <header class="site-header">
             <div class="header-inner">
                 <a class="brand" href="#" onclick="switchTab('home'); return false;" title="SUNSHINE — home">
                     <span class="brand-copy">
@@ -89,22 +88,22 @@
         <main id="main-content" tabindex="-1">
 
             <!-- ============ HOME ============ -->
-            <section id="tab-home" class="tab-content active is-entering" aria-labelledby="home-title">
+            <section id="tab-home" class="tab-content active" aria-labelledby="home-title">
 
                 <div class="hero">
                     <div class="hero__copy">
-                        <h1 id="home-title" data-reveal data-wiggle aria-label="Hello! I'm MOS">
+                        <h1 id="home-title" data-wiggle aria-label="Hello! I'm MOS">
                             <span class="line">Hello!</span>
                             <span class="line">I'm <mark>MOS</mark></span>
                         </h1>
-                        <p class="hero__lede" data-reveal="soft">
+                        <p class="hero__lede">
                             19 years old Computer Science student at <strong>Mahasarakham University</strong> with a strong passion for <strong>Network Engineering</strong> and <strong>Cybersecurity CTF competitions</strong>.
                         </p>
                         <div class="actions">
-                            <a class="btn btn-primary" data-reveal="soft" href="https://github.com/dragonmainsky" target="_blank" rel="noopener">
+                            <a class="btn btn-primary" href="https://github.com/dragonmainsky" target="_blank" rel="noopener">
                                 <i class="fa-brands fa-github" aria-hidden="true"></i> View GitHub Profile
                             </a>
-                            <button class="btn btn-glass" data-reveal="soft" onclick="switchTab('certificate')">
+                            <button class="btn btn-glass" onclick="switchTab('certificate')">
                                 <i class="fa-solid fa-award" aria-hidden="true"></i> My Certificate
                             </button>
                         </div>
@@ -112,7 +111,7 @@
 
                 </div>
 
-                <div class="section-head" data-reveal>
+                <div class="section-head">
                     <div class="section-title">
                         <span class="section-kicker">Selected / 003</span>
                         <h2>Featured work &amp; projects</h2>
@@ -121,7 +120,7 @@
 
                 <div class="projects">
 
-                    <article class="project project--network" data-reveal>
+                    <article class="project project--network">
                         <div class="project__art">
                             <span class="project-index" aria-hidden="true">01</span>
                             <span class="project-icon" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></span>
@@ -139,7 +138,7 @@
                         </div>
                     </article>
 
-                    <article class="project project--ctf" data-reveal>
+                    <article class="project project--ctf">
                         <div class="project__art">
                             <span class="project-index" aria-hidden="true">02</span>
                             <span class="project-icon" aria-hidden="true"><i class="fa-solid fa-flag"></i></span>
@@ -157,7 +156,7 @@
                         </div>
                     </article>
 
-                    <article class="project project--skill" data-reveal>
+                    <article class="project project--skill">
                         <div class="project__art">
                             <span class="project-index" aria-hidden="true">03</span>
                             <span class="project-icon" aria-hidden="true"><i class="fa-solid fa-terminal"></i></span>
@@ -180,7 +179,7 @@
 
             <!-- ============ CERTIFICATE ============ -->
             <section id="tab-certificate" class="tab-content" aria-labelledby="certificate-title">
-                <div class="panel panel--cert">
+                <div class="panel">
                     <div class="panel__chrome" aria-hidden="true">
                         <span class="panel__title">My Certificate</span>
                         <span class="panel__meta">CERT-2026-RDE28N</span>
@@ -189,9 +188,9 @@
                     <div class="panel__body">
                         <div class="panel-head">
                             <div>
-                                <span class="tag" data-reveal="soft"><i class="fa-solid fa-award" aria-hidden="true"></i> Senior category</span>
-                                <h2 id="certificate-title" data-reveal data-decode>Thailand Cyber Top Talent 2026</h2>
-                                <p class="panel-head__lede" data-reveal="soft">National Cyber Security Agency (NCSA) &amp; Huawei • Thailand National Cyber Academy</p>
+                                <span class="tag"><i class="fa-solid fa-award" aria-hidden="true"></i> Senior category</span>
+                                <h2 id="certificate-title" data-decode>Thailand Cyber Top Talent 2026</h2>
+                                <p class="panel-head__lede">National Cyber Security Agency (NCSA) &amp; Huawei • Thailand National Cyber Academy</p>
                             </div>
                         </div>
 
@@ -219,7 +218,7 @@
                                 </div>
                             </dl>
 
-                            <figure class="cert-frame" data-reveal="grow">
+                            <figure class="cert-frame">
                                 <a class="cert-frame__link" href="images/Certificate_CERT-2026-RDE28N.png" target="_blank" rel="noopener" aria-label="Open the certificate image at full size in a new tab">
                                     <img src="images/Certificate_CERT-2026-RDE28N.png" alt="Thailand Cyber Top Talent 2026 certificate awarded to Surasat Chanthakalyaa" width="2000" height="1414" loading="lazy" decoding="async">
                                 </a>
@@ -242,17 +241,17 @@
 
                     <div class="panel__body">
                         <div class="about-head">
-                            <div class="avatar-wrap" data-reveal="soft">
+                            <div class="avatar-wrap">
                                 <img class="avatar" src="images/127975405.jpg" alt="MOS profile sketch" width="400" height="400" loading="lazy" decoding="async">
                                 <span class="avatar-badge" aria-hidden="true">SUNSHINE / 2026</span>
                             </div>
                             <div class="about-copy">
-                                <h2 id="about-title" data-reveal data-decode>MOS</h2>
-                                <p class="about-copy__lede" data-reveal="soft"><strong>19 years old</strong> • Computer Science major at <strong>Mahasarakham University</strong></p>
-                                <p data-reveal="soft">
+                                <h2 id="about-title" data-decode>MOS</h2>
+                                <p class="about-copy__lede"><strong>19 years old</strong> • Computer Science major at <strong>Mahasarakham University</strong></p>
+                                <p>
                                     Studying network protocols, server configuration, and practical cybersecurity. Active in CTF security tournaments and open-source file sharing network developments.
                                 </p>
-                                <ul class="about-tags" data-reveal="soft" aria-label="Focus areas">
+                                <ul class="about-tags" aria-label="Focus areas">
                                     <li>Computer Science</li>
                                     <li>Networking</li>
                                     <li>Cyber Security</li>
@@ -284,15 +283,15 @@
                     <div class="panel__body">
                         <div class="info-head">
                             <div>
-                                <h2 id="info-title" data-reveal data-decode>Info Me</h2>
-                                <p data-reveal="soft">
+                                <h2 id="info-title" data-decode>Info Me</h2>
+                                <p>
                                     Find me across the platforms I use for security practice, learning, and creative work.
                                 </p>
                             </div>
                         </div>
 
                         <ul class="profile-links" aria-label="Online profiles">
-                            <li data-reveal="soft">
+                            <li>
                                 <a class="profile-link profile-link--facebook" href="https://www.facebook.com/surasat.chanthakalyaa/" target="_blank" rel="noopener noreferrer">
                                     <span class="profile-link__icon" aria-hidden="true">
                                         <i class="fa-brands fa-facebook-f"></i>
@@ -305,7 +304,7 @@
                                 </a>
                             </li>
 
-                            <li data-reveal="soft">
+                            <li>
                                 <a class="profile-link profile-link--x" href="https://x.com/dragonmagm70700" target="_blank" rel="noopener noreferrer">
                                     <span class="profile-link__icon" aria-hidden="true">
                                         <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
@@ -321,7 +320,7 @@
                                 </a>
                             </li>
 
-                            <li data-reveal="soft">
+                            <li>
                                 <a class="profile-link profile-link--htb" href="https://profile.hackthebox.com/profile/01a09145-66db-71aa-9630-552d8ac1460a?utm_medium=copy_url" target="_blank" rel="noopener noreferrer">
                                     <span class="profile-link__icon" aria-hidden="true">
                                         <i class="fa-solid fa-cube"></i>
@@ -334,7 +333,7 @@
                                 </a>
                             </li>
 
-                            <li data-reveal="soft">
+                            <li>
                                 <a class="profile-link profile-link--cisco" href="https://learningnetwork.cisco.com/s/profile/005QO00000II3Zl" target="_blank" rel="noopener noreferrer">
                                     <span class="profile-link__icon" aria-hidden="true">
                                         <i class="fa-solid fa-network-wired"></i>
@@ -374,6 +373,6 @@
         <kbd>Esc</kbd>
     </button>
 
-    <script src="js/main.js?v=25"></script>
+    <script src="js/main.js?v=26"></script>
 </body>
 </html>

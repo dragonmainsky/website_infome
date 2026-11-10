@@ -1,29 +1,25 @@
 // Tab switching (Home / My Certificate / About me / Info Me).
 // Called from onclick attributes in index.html, so it must stay a global function.
 
-const decodeMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const DECODE_GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#/+';
 let decodeTimer = 0;
-const revealFallbackTimers = new WeakMap();
 
 // ---------------------------------------------------------------------------
 // Full-page 3D entrance. Plays on every page load; after it ends the page
-// behaves exactly like before and every tab keeps its normal reveal.
+// switches tabs with the camera transition and decodes its headings normally.
 // ---------------------------------------------------------------------------
 const INTRO_MS = 3200; // keep in sync with the CSS animation timings
-const introMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const introRoot = document.documentElement;
 const introSkip = document.getElementById('intro-skip');
 let introPlaying = false;
 let introTimer = 0;
 
 // Tab camera transition timers.
-const tabMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let tabLeaveTimer = 0;
 let tabEnterTimer = 0;
 
 // Mouse depth: the scene and hero drift at different multipliers.
-const parallaxMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const parallaxPointer = window.matchMedia('(hover: hover) and (pointer: fine)');
 let parallaxReady = false;
 
@@ -43,7 +39,7 @@ function resetParallax() {
 }
 
 function enableParallax() {
-    if (parallaxReady || parallaxMotion.matches || !parallaxPointer.matches) return;
+    if (parallaxReady || reduceMotion.matches || !parallaxPointer.matches) return;
     parallaxReady = true;
     introRoot.classList.add('parallax');
     window.addEventListener('pointermove', onParallaxMove, { passive: true });
@@ -69,12 +65,6 @@ function finishIntro() {
 
     if ('scrollRestoration' in history) history.scrollRestoration = 'auto';
 
-    const active = document.querySelector('.tab-content.active');
-    if (active) {
-        active.classList.remove('is-entering', 'is-revealing');
-        active.classList.add('is-revealed');
-    }
-
     if (skipFocused) {
         const main = document.getElementById('main-content');
         if (main) main.focus({ preventScroll: true });
@@ -87,7 +77,7 @@ function finishIntro() {
 function startIntro() {
     introRoot.classList.remove('intro-pending');
 
-    if (introMotion.matches) return false;
+    if (reduceMotion.matches) return false;
 
     introPlaying = true;
     introRoot.classList.add('intro');
@@ -105,7 +95,7 @@ function startIntro() {
 
 // Briefly replace a heading with fixed-width scrambled glyphs, then lock it in.
 function decodeHeading(el, { delay = 0, duration = 640 } = {}) {
-    if (!el || el.dataset.decoded === 'true' || decodeMotion.matches) return;
+    if (!el || el.dataset.decoded === 'true' || reduceMotion.matches) return;
     if (el.offsetParent === null) return;
 
     const original = el.textContent;
@@ -146,7 +136,7 @@ function decodeHeading(el, { delay = 0, duration = 640 } = {}) {
     }
 
     function frame(now) {
-        if (decodeMotion.matches) {
+        if (reduceMotion.matches) {
             finish();
             return;
         }
@@ -181,7 +171,7 @@ function decodeHeading(el, { delay = 0, duration = 640 } = {}) {
 }
 
 function decodeActiveTab(delay = 0) {
-    if (decodeMotion.matches) return;
+    if (reduceMotion.matches) return;
 
     const active = document.querySelector('.tab-content.active');
     if (!active) return;
@@ -196,14 +186,13 @@ function scheduleActiveDecode(delay = 180) {
     decodeTimer = window.setTimeout(() => decodeActiveTab(), delay);
 }
 
-function switchTab(tabName, updateHistory = true, options = {}) {
+function switchTab(tabName, updateHistory = true) {
     const target = document.getElementById('tab-' + tabName);
     if (!target) return;
 
     // Normal tab switches use the camera transition; while the intro owns the
     // screen we let its own keyframes handle the panel.
-    const animateTab = !introPlaying && !tabMotion.matches;
-    const reveal = options.reveal !== false && !introPlaying && !animateTab;
+    const animateTab = !introPlaying && !reduceMotion.matches;
     const current = document.querySelector('.tab-content.active');
 
     document.querySelectorAll('.tab-content').forEach(el => {
@@ -219,9 +208,6 @@ function switchTab(tabName, updateHistory = true, options = {}) {
         tabLeaveTimer = window.setTimeout(() => current.classList.remove('is-leaving'), 280);
     }
 
-    // Prepare the incoming tab while it is still hidden, then show it.
-    target.classList.add('is-entering');
-    if (reveal) prepareReveal(target, true);
     target.classList.add('active');
 
     if (animateTab) {
@@ -267,45 +253,14 @@ function tabFromHash() {
     return name && document.getElementById('tab-' + name) ? name : 'home';
 }
 
-// Give every revealable block in a tab its own stagger delay.
-// Facts rows are marked here, so new rows animate automatically.
-function prepareReveal(section, restart) {
-    if (!section) return;
-
-    section.querySelectorAll('.facts > div').forEach(el => {
-        if (!el.hasAttribute('data-reveal')) el.setAttribute('data-reveal', 'soft');
-    });
-
-    const items = section.querySelectorAll('[data-reveal]');
-    items.forEach((el, index) => el.style.setProperty('--reveal-index', index));
-
-    if (restart) {
-        section.classList.remove('is-revealing');
-        void section.offsetWidth; // force a reflow so the animation replays
-    }
-
-    section.classList.remove('is-revealed');
-    section.classList.add('is-revealing');
-
-    // Some environments pause or skip CSS animations (background tabs,
-    // reduced-motion tools, headless screenshots). Never leave the copy at
-    // opacity 0: force the finished state once the choreography is over.
-    window.clearTimeout(revealFallbackTimers.get(section));
-    const animationWindow = items.length * 70 + 600;
-    revealFallbackTimers.set(section, window.setTimeout(() => {
-        section.classList.add('is-revealed');
-    }, animationWindow));
-}
-
 // Open the tab named in the URL hash (e.g. index.html#certificate).
 window.addEventListener('DOMContentLoaded', () => {
     const introStarted = startIntro();
     const name = tabFromHash();
 
     if (name !== 'home') {
-        switchTab(name, false, { reveal: !introStarted });
+        switchTab(name, false);
     } else if (!introStarted) {
-        prepareReveal(document.getElementById('tab-home'), false);
         scheduleActiveDecode(120);
         enableParallax();
     }
@@ -357,7 +312,7 @@ splitWiggleText();
 // Frutiger Metro arrows gathered around the screen edges, sliding inward on arrival.
 function spawnArrows() {
     const layer = document.querySelector('.arrow-rain');
-    if (!layer || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!layer || reduceMotion.matches) return;
 
     const shapes = [
         '<svg viewBox="0 0 120 80" focusable="false" aria-hidden="true"><path d="M2 28 H60 V8 L118 40 L60 72 V52 H2 Z" fill="currentColor" stroke="#111" stroke-width="6" stroke-linejoin="round"></path></svg>',
