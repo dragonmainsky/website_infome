@@ -1109,21 +1109,6 @@ strong {
     object-fit: cover;
 }
 
-.avatar-badge {
-    position: absolute;
-    right: 8px;
-    bottom: 8px;
-    padding: 3px 6px;
-    background: var(--ink);
-    border: 1px solid #000000;
-    border-radius: 4px;
-    color: var(--lime);
-    font-size: 6.5px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-}
-
 .about-copy h2 {
     margin: 0 0 0.3rem;
     font-size: clamp(2.4rem, 5vw, 3.6rem);
