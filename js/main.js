@@ -17,6 +17,40 @@ const introSkip = document.getElementById('intro-skip');
 let introPlaying = false;
 let introTimer = 0;
 
+// Tab camera transition timers.
+const tabMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let tabLeaveTimer = 0;
+let tabEnterTimer = 0;
+
+// Mouse depth: the scene and hero drift at different multipliers.
+const parallaxMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const parallaxPointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+let parallaxReady = false;
+
+function setParallax(x, y) {
+    introRoot.style.setProperty('--px', x.toFixed(3));
+    introRoot.style.setProperty('--py', y.toFixed(3));
+}
+
+function onParallaxMove(event) {
+    const x = (event.clientX / window.innerWidth - 0.5) * 2;
+    const y = (event.clientY / window.innerHeight - 0.5) * 2;
+    setParallax(Math.max(-1, Math.min(1, x)), Math.max(-1, Math.min(1, y)));
+}
+
+function resetParallax() {
+    setParallax(0, 0);
+}
+
+function enableParallax() {
+    if (parallaxReady || parallaxMotion.matches || !parallaxPointer.matches) return;
+    parallaxReady = true;
+    introRoot.classList.add('parallax');
+    window.addEventListener('pointermove', onParallaxMove, { passive: true });
+    window.addEventListener('blur', resetParallax);
+    document.documentElement.addEventListener('mouseleave', resetParallax);
+}
+
 function onIntroKey(event) {
     if (event.key === 'Escape') finishIntro();
 }
@@ -47,6 +81,7 @@ function finishIntro() {
     }
 
     scheduleActiveDecode(160);
+    enableParallax();
 }
 
 function startIntro() {
@@ -165,16 +200,34 @@ function switchTab(tabName, updateHistory = true, options = {}) {
     const target = document.getElementById('tab-' + tabName);
     if (!target) return;
 
-    // While the 3D intro owns the screen, the panel animates through the
-    // intro keyframes instead of replaying the small tab reveal.
-    const reveal = options.reveal !== false && !introPlaying;
+    // Normal tab switches use the camera transition; while the intro owns the
+    // screen we let its own keyframes handle the panel.
+    const animateTab = !introPlaying && !tabMotion.matches;
+    const reveal = options.reveal !== false && !introPlaying && !animateTab;
+    const current = document.querySelector('.tab-content.active');
 
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.remove('active', 'is-tab-entering');
+        if (el !== current) el.classList.remove('is-leaving');
+    });
+
+    window.clearTimeout(tabLeaveTimer);
+    window.clearTimeout(tabEnterTimer);
+
+    if (current && current !== target && animateTab) {
+        current.classList.add('is-leaving');
+        tabLeaveTimer = window.setTimeout(() => current.classList.remove('is-leaving'), 280);
+    }
 
     // Prepare the incoming tab while it is still hidden, then show it.
     target.classList.add('is-entering');
     if (reveal) prepareReveal(target, true);
     target.classList.add('active');
+
+    if (animateTab) {
+        target.classList.add('is-tab-entering');
+        tabEnterTimer = window.setTimeout(() => target.classList.remove('is-tab-entering'), 620);
+    }
 
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.classList.remove('is-active');
@@ -203,10 +256,9 @@ function switchTab(tabName, updateHistory = true, options = {}) {
         }
     }
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'auto' });
 
-    if (reveal) scheduleActiveDecode(180);
+    if (!introPlaying) scheduleActiveDecode(160);
 }
 
 // Map the current URL hash to a tab name, falling back to home.
@@ -255,6 +307,7 @@ window.addEventListener('DOMContentLoaded', () => {
     } else if (!introStarted) {
         prepareReveal(document.getElementById('tab-home'), false);
         scheduleActiveDecode(120);
+        enableParallax();
     }
 });
 

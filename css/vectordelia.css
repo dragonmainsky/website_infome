@@ -1777,6 +1777,102 @@ html.intro .intro-skip {
 }
 
 /* --------------------------------------------------------------------------
+   Mouse depth — background and hero drift at different speeds
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+    html.parallax .scene-city {
+        scale: 1.03;
+        translate: calc(var(--px, 0) * 8px) calc(var(--py, 0) * 6px);
+        transition: translate 0.5s var(--ease), scale 0.6s var(--ease);
+    }
+
+    html.parallax .scene-arrow--main {
+        translate: calc(var(--px, 0) * 14px) calc(var(--py, 0) * 10px);
+        transition: translate 0.55s var(--ease);
+    }
+
+    html.parallax .scene-arrow--sign {
+        translate: calc(var(--px, 0) * 22px) calc(var(--py, 0) * 16px);
+        transition: translate 0.6s var(--ease);
+    }
+
+    html.parallax .scene-arrow--right {
+        translate: calc(var(--px, 0) * 30px) calc(var(--py, 0) * 22px);
+        transition: translate 0.65s var(--ease);
+    }
+
+    html.parallax #tab-home .hero h1 {
+        translate: calc(var(--px, 0) * -12px) calc(var(--py, 0) * -8px);
+        transition: translate 0.6s var(--ease);
+    }
+
+    html.parallax #tab-home .hero h1 mark {
+        translate: calc(var(--px, 0) * -6px) calc(var(--py, 0) * -4px);
+        transition: translate 0.5s var(--ease);
+    }
+
+    html.parallax #tab-home .hero__lede {
+        translate: calc(var(--px, 0) * -6px) calc(var(--py, 0) * -4px);
+        transition: translate 0.6s var(--ease);
+    }
+
+    html.parallax #tab-home .actions {
+        translate: calc(var(--px, 0) * -4px) calc(var(--py, 0) * -3px);
+        transition: translate 0.6s var(--ease);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Tab transitions — the old page tips back, the new one flies in
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+    .tab-content.is-leaving {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 2;
+        display: block;
+        pointer-events: none;
+        animation: tab-leave 0.22s var(--ease) both;
+    }
+
+    .tab-content.active.is-tab-entering {
+        position: relative;
+        z-index: 3;
+        animation: tab-enter 0.55s var(--ease) both;
+        transform-origin: 50% 0%;
+    }
+
+    @keyframes tab-leave {
+        from {
+            opacity: 1;
+            transform: perspective(1100px) translate3d(0, 0, 0) rotateX(0);
+        }
+        to {
+            opacity: 0;
+            transform: perspective(1100px) translate3d(0, 12px, -150px) rotateX(5deg) scale(0.99);
+        }
+    }
+
+    @keyframes tab-enter {
+        0% {
+            opacity: 0;
+            transform: perspective(1100px) translate3d(0, 26px, -190px) rotateX(6deg);
+        }
+        15% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 1;
+            transform: perspective(1100px) translate3d(0, 0, 0) rotateX(0);
+        }
+    }
+}
+
+/* --------------------------------------------------------------------------
    Responsive
    -------------------------------------------------------------------------- */
 
