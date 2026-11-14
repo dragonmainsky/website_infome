@@ -2,29 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script>
-        // The intro must always start from the top; stop the browser from
-        // restoring the previous scroll position after a refresh.
-        // Hide the UI before first paint when the 3D intro is about to play,
-        // so there is no flash of the finished layout.
-        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            if ('scrollRestoration' in history) {
-                history.scrollRestoration = 'manual';
-            }
-            document.documentElement.classList.add('intro-pending');
-        }
-        // Failsafe in case the main script never boots.
-        window.setTimeout(function () {
-            document.documentElement.classList.remove('intro-pending');
-        }, 4000);
-    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOS — Computer Science &amp; Cybersecurity Portfolio | SUNSHINE</title>
     <meta name="description" content="SUNSHINE portfolio of MOS, a 19-year-old Computer Science student at Mahasarakham University focused on network engineering, cybersecurity and CTF competitions.">
     <meta name="author" content="MOS">
-    <meta name="theme-color" content="#3F7D12">
-    <meta name="color-scheme" content="light">
-    <link rel="icon" type="image/svg+xml" href="images/favicon.svg?v=8">
+    <meta name="theme-color" content="#181C14">
+    <meta name="color-scheme" content="dark">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg?v=11">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="SUNSHINE / MOS Portfolio">
@@ -37,336 +21,456 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700&family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/vectordelia.css?v=41">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/vectordelia.css?v=78">
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
 
-    <div class="scene" aria-hidden="true">
-        <img class="scene-city" src="images/vectordelia/scene-city.webp" alt="" width="1224" height="694" decoding="async">
-        <img class="scene-arrow scene-arrow--main" src="images/vectordelia/arrow-main.webp" alt="" width="1224" height="694" decoding="async">
-        <img class="scene-arrow scene-arrow--sign" src="images/vectordelia/arrow-sign.webp" alt="" width="1224" height="694" decoding="async">
-        <img class="scene-arrow scene-arrow--right" src="images/vectordelia/arrow-right.webp" alt="" width="1224" height="694" decoding="async">
+    <!-- An animated seasonal ascii.rest field. The script swaps it to the
+         visitor's real-world season; the autumn frame is the no-JS fallback. -->
+    <div class="season-field" aria-hidden="true">
+        <pre class="season-field__art" id="season-art">       ▁▁──▔▔                                       ▁▁▁▁▁▁▁▁
+            ▁▁▁───▔
+       ──▔▔▔              ▁▁▁▁▁▁              ▔▔▔▔───────
+                     '▔▔▔▔      ▔▔▔
+    ───▁▁▁▁▁▁▁──           ▁▁▁▁▁▁▁───────────────────────
+                       '▔▔▔
+                                            ▁▁▁▁▁▁▁▁▁▁  ▁
+                                           '          ▔▔
+                                             .▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+      '▔▔▔▔▔▔────▁▁▁
+           .▁▁      ▔▔▔─                    ▁▁▁─────────
+              ▔▔▔──▁▁▁              ▁▁───▔▔▔
+           ·─▁▁▁▁     ▔▔▔▔──────▔▔▔▔      ▁▁──▔▔▔▔▔▔▔▔▔▔▔
+                 ▔▔▔─────      .▁───────▔▔</pre>
     </div>
 
-    <div class="arrow-rain" aria-hidden="true"></div>
+    <header class="topbar">
+        <div class="shell topbar__inner">
+            <a class="brand" href="#home" title="SUNSHINE portfolio">
+                <span class="brand__prompt" aria-hidden="true">~$</span>
+                <span class="brand__name">sunshine</span>
+                <span class="brand__sub">mos / computer science &amp; cybersecurity</span>
+            </a>
 
-    <div class="page">
+            <nav class="nav" aria-label="Main">
+                <button onclick="switchTab('home')" id="nav-home" class="nav-btn is-active" aria-current="page">
+                    [home]
+                </button>
+                <button onclick="switchTab('certificate')" id="nav-certificate" class="nav-btn">
+                    [certificate]
+                </button>
+                <button onclick="switchTab('about')" id="nav-about" class="nav-btn">
+                    [about]
+                </button>
+                <button onclick="switchTab('info')" id="nav-info" class="nav-btn">
+                    [info]
+                </button>
+            </nav>
 
-        <header class="site-header">
-            <div class="header-inner">
-                <a class="brand" href="#" onclick="switchTab('home'); return false;" title="SUNSHINE — home">
-                    <span class="brand-copy">
-                        <span class="brand-name">SUNSHINE</span>
-                        <span class="brand-sub">Vectordelia / Portfolio</span>
-                    </span>
-                </a>
+        </div>
+    </header>
 
-                <nav class="nav" aria-label="Main">
-                    <button onclick="switchTab('home')" id="nav-home" class="nav-btn is-active" aria-current="page" title="Home">
-                        <i class="fa-solid fa-house" aria-hidden="true"></i>
-                        <span>Home</span>
-                    </button>
-                    <button onclick="switchTab('certificate')" id="nav-certificate" class="nav-btn" title="My Certificate">
-                        <i class="fa-solid fa-award" aria-hidden="true"></i>
-                        <span>My Certificate</span>
-                    </button>
-                    <button onclick="switchTab('about')" id="nav-about" class="nav-btn" title="About me">
-                        <i class="fa-solid fa-user-astronaut" aria-hidden="true"></i>
-                        <span>About me</span>
-                    </button>
-                    <button onclick="switchTab('info')" id="nav-info" class="nav-btn" title="Info Me">
-                        <i class="fa-solid fa-id-card" aria-hidden="true"></i>
-                        <span>Info Me</span>
-                    </button>
-                </nav>
-            </div>
-        </header>
+    <main id="main-content" tabindex="-1">
 
-        <main id="main-content" tabindex="-1">
+        <!-- ============ HOME ============ -->
+        <section id="tab-home" class="tab-content active" aria-labelledby="home-title">
 
-            <!-- ============ HOME ============ -->
-            <section id="tab-home" class="tab-content active" aria-labelledby="home-title">
-
-                <div class="hero">
-                    <div class="hero__copy">
-                        <h1 id="home-title" data-wiggle aria-label="Hello! I'm MOS">
-                            <span class="line">Hello!</span>
-                            <span class="line">I'm <mark>MOS</mark></span>
-                        </h1>
+            <div class="band hero-band">
+                <div class="shell zig hero">
+                    <div class="zig__copy hero__copy">
+                        <h1 id="home-title">computer science <span class="amp">&amp;</span> cybersecurity</h1>
                         <p class="hero__lede">
-                            19 years old Computer Science student at <strong>Mahasarakham University</strong> with a strong passion for <strong>Network Engineering</strong> and <strong>Cybersecurity CTF competitions</strong>.
+                            I'm <strong>MOS</strong>, a 19-year-old Computer Science student at <strong>Mahasarakham University</strong>. I study network engineering and compete in cybersecurity CTFs.
                         </p>
                         <div class="actions">
-                            <a class="btn btn-primary" href="https://github.com/dragonmainsky" target="_blank" rel="noopener">
-                                <i class="fa-brands fa-github" aria-hidden="true"></i> View GitHub Profile
+                            <a class="action" href="https://github.com/dragonmainsky" target="_blank" rel="noopener">
+                                [ view github ]
                             </a>
-                            <button class="btn btn-glass" onclick="switchTab('certificate')">
-                                <i class="fa-solid fa-award" aria-hidden="true"></i> My Certificate
+                            <button class="action" type="button" onclick="switchTab('certificate')">
+                                [ view certificate ]
                             </button>
                         </div>
                     </div>
 
-                </div>
-
-                <div class="section-head">
-                    <div class="section-title">
-                        <span class="section-kicker">Selected / 003</span>
-                        <h2>Featured work &amp; projects</h2>
-                    </div>
-                </div>
-
-                <div class="projects">
-
-                    <article class="project project--network">
-                        <div class="project__art">
-                            <span class="project-index" aria-hidden="true">01</span>
-                            <span class="project-icon" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></span>
-                        </div>
-                        <div class="project__body">
-                            <span class="tag"><i class="fa-solid fa-network-wired" aria-hidden="true"></i> Networking project</span>
-                            <h3>share-web-and-files</h3>
-                            <p>
-                                A lightweight network utility designed for sharing files and hosting temporary web content across local network environments. Built for fast deployment and socket distribution.
-                            </p>
-                        </div>
-                        <div class="project-foot">
-                            <span>Python / Network Sockets</span>
-                            <a href="https://github.com/dragonmainsky/share-web-and-files" target="_blank" rel="noopener">Open repo <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-                        </div>
-                    </article>
-
-                    <article class="project project--ctf">
-                        <div class="project__art">
-                            <span class="project-index" aria-hidden="true">02</span>
-                            <span class="project-icon" aria-hidden="true"><i class="fa-solid fa-flag"></i></span>
-                        </div>
-                        <div class="project__body">
-                            <span class="tag"><i class="fa-solid fa-flag" aria-hidden="true"></i> CTF competition</span>
-                            <h3>Thailand Cyber Top Talent 2026</h3>
-                            <p>
-                                Competed in Thailand's official national cybersecurity competition organized by NCSA and Huawei, solving network packet analysis, web exploitation, and forensic challenges.
-                            </p>
-                        </div>
-                        <div class="project-foot">
-                            <span>Team: Ah-rai wa</span>
-                            <button class="link-btn" onclick="switchTab('certificate')">View certificate</button>
-                        </div>
-                    </article>
-
-                    <article class="project project--skill">
-                        <div class="project__art">
-                            <span class="project-index" aria-hidden="true">03</span>
-                            <span class="project-icon" aria-hidden="true"><i class="fa-solid fa-terminal"></i></span>
-                        </div>
-                        <div class="project__body">
-                            <span class="tag"><i class="fa-solid fa-terminal" aria-hidden="true"></i> CTF agent skill</span>
-                            <h3>ctf-skill-sunshine</h3>
-                            <p>
-                                A portable AI-agent skill that automates CTFd challenge fetching and flag submission, provides playbooks for seven CTF categories, verifies external tools with SHA-256, and produces detailed Thai writeups.
-                            </p>
-                        </div>
-                        <div class="project-foot">
-                            <span>Python / Agent Skill / CTFd</span>
-                            <a href="https://github.com/dragonmainsky/ctf-skill-sunshine" target="_blank" rel="noopener">Open repo <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-                        </div>
-                    </article>
-
-                </div>
-            </section>
-
-            <!-- ============ CERTIFICATE ============ -->
-            <section id="tab-certificate" class="tab-content" aria-labelledby="certificate-title">
-                <div class="panel">
-                    <div class="panel__chrome" aria-hidden="true">
-                        <span class="panel__title">My Certificate</span>
-                        <span class="panel__meta">CERT-2026-RDE28N</span>
-                    </div>
-
-                    <div class="panel__body">
-                        <div class="panel-head">
-                            <div>
-                                <span class="tag"><i class="fa-solid fa-award" aria-hidden="true"></i> Senior category</span>
-                                <h2 id="certificate-title" data-decode>Thailand Cyber Top Talent 2026</h2>
-                                <p class="panel-head__lede">National Cyber Security Agency (NCSA) &amp; Huawei • Thailand National Cyber Academy</p>
+                    <div class="zig__visual">
+                        <div class="well well--banner">
+                            <div class="well__bar">
+                                <span>banner.txt</span>
+                                <span>glint / live</span>
+                            </div>
+                            <div class="well__body well__body--banner">
+                                <pre class="ascii ascii--banner" data-live="banner" role="img" aria-label="MOS in animated block letters">▓▓╗     ▓▓╗   ▓▓▓▓╗     ▓▓▓▓▓▓╗
+▓▓▓▓╗ ▓▓▓▓║ ▓▓╔═══▓▓╗ ▓▓╔═════╝
+▓▓╔═▓▓╔═▓▓║ ▓▓║   ▓▓║ ╚═▓▓▓▓╗
+▓▓║ ╚═╝ ▓▓║ ▓▓║   ▓▓║   ╚═══▓▓╗
+▓▓║     ▓▓║ ╚═▓▓▓▓╔═╝ ▓▓▓▓▓▓╔═╝
+╚═╝     ╚═╝   ╚═══╝   ╚═════╝</pre>
+                            </div>
+                            <div class="well__foot">
+                                <span>id: mos</span>
+                                <span>msu / th</span>
                             </div>
                         </div>
-
-                        <div class="cert-layout">
-                            <dl class="facts">
-                                <div>
-                                    <dt>Recipient</dt>
-                                    <dd lang="th">นาย สุรศาสตร์ จันทะกัลยา</dd>
-                                </div>
-                                <div>
-                                    <dt>Team name</dt>
-                                    <dd>Ah-rai wa</dd>
-                                </div>
-                                <div>
-                                    <dt>Presented date</dt>
-                                    <dd>15 August 2026</dd>
-                                </div>
-                                <div>
-                                    <dt>Competition</dt>
-                                    <dd>NCSA CTF Tournament</dd>
-                                </div>
-                                <div>
-                                    <dt>Certificate code</dt>
-                                    <dd>CERT-2026-RDE28N</dd>
-                                </div>
-                            </dl>
-
-                            <figure class="cert-frame">
-                                <a class="cert-frame__link" href="images/Certificate_CERT-2026-RDE28N.png" target="_blank" rel="noopener" aria-label="Open the certificate image at full size in a new tab">
-                                    <img src="images/Certificate_CERT-2026-RDE28N.png" alt="Thailand Cyber Top Talent 2026 certificate awarded to Surasat Chanthakalyaa" width="2000" height="1414" loading="lazy" decoding="async">
-                                </a>
-                                <figcaption>
-                                    <span>Certificate / original</span>
-                                    <a class="cert-frame__cta" href="images/Certificate_CERT-2026-RDE28N.png" target="_blank" rel="noopener">View full size <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-                                </figcaption>
-                            </figure>
-                        </div>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- ============ ABOUT ============ -->
-            <section id="tab-about" class="tab-content" aria-labelledby="about-title">
-                <div class="panel panel--about">
-                    <div class="panel__chrome" aria-hidden="true">
-                        <span class="panel__title">About Me</span>
+            <div class="band band--rule">
+                <div class="shell zig zig--reverse">
+                    <div class="zig__copy">
+                        <h2>a network you can hold.</h2>
+                        <p>
+                            My work sits between the cable and the terminal: network protocols, server configuration, and the small home lab where I test both.
+                        </p>
+                        <p class="muted">
+                            Most of what I learn ends up in a rack, a packet capture, or a write-up. Then I take it apart and start again.
+                        </p>
+                        <ul class="spec-list">
+                            <li><span>focus</span><span>network engineering</span></li>
+                            <li><span>stack</span><span>linux · python · sockets</span></li>
+                            <li><span>node</span><span>msu / th</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="band band--rule work-band">
+                <div class="shell">
+                    <div class="section-head">
+                        <div>
+                            <p class="kicker">[ 04 / selected work ]</p>
+                            <h2>selected work</h2>
+                        </div>
+                        <p class="section-head__meta">03 entries<br>static previews</p>
                     </div>
 
-                    <div class="panel__body">
-                        <div class="about-head">
-                            <div class="avatar-wrap">
-                                <img class="avatar" src="images/127975405.jpg" alt="MOS profile sketch" width="400" height="400" loading="lazy" decoding="async">
-                            </div>
-                            <div class="about-copy">
-                                <h2 id="about-title" data-decode>MOS</h2>
-                                <p class="about-copy__lede"><strong>19 years old</strong> • Computer Science major at <strong>Mahasarakham University</strong></p>
+                    <div class="work-list">
+
+                        <article class="work-row">
+                            <div class="work-row__copy">
+                                <p class="work-row__meta"><span>[ 01 ]</span><span>networking</span></p>
+                                <h3>share-web-and-files</h3>
                                 <p>
-                                    Studying network protocols, server configuration, and practical cybersecurity. Active in CTF security tournaments and open-source file sharing network developments.
+                                    A lightweight network utility for sharing files and hosting temporary web content on local networks. Built for fast deployment and socket distribution.
                                 </p>
+                                <div class="work-row__foot">
+                                    <span>python / sockets</span>
+                                    <a href="https://github.com/dragonmainsky/share-web-and-files" target="_blank" rel="noopener" aria-label="Open the share-web-and-files repository on GitHub">[ open repo ]</a>
+                                </div>
+                            </div>
+                            <div class="work-row__visual">
+                                <div class="well well--preview">
+                                    <div class="well__bar"><span>preview.txt</span><span>static</span></div>
+                                    <div class="well__body well__body--ascii">
+                                        <pre class="project__ascii" aria-hidden="true">  .--------.      .--------.
+   | client |      | client |
+   '---+----'      '----+---'
+       |                |
+       '----.    .------'
+            |    |
+         .--+----+--.
+         |  files   |
+         '----------'</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="work-row work-row--reverse">
+                            <div class="work-row__copy">
+                                <p class="work-row__meta"><span>[ 02 ]</span><span>ctf</span></p>
+                                <h3>Thailand Cyber Top Talent 2026</h3>
+                                <p>
+                                    Thailand's national cybersecurity competition organized by NCSA and Huawei. Solved network packet analysis, web exploitation and forensic challenges.
+                                </p>
+                                <div class="work-row__foot">
+                                    <span>team / ah-rai wa</span>
+                                    <button class="link-btn" type="button" onclick="switchTab('certificate')">[ view certificate ]</button>
+                                </div>
+                            </div>
+                            <div class="work-row__visual">
+                                <div class="well well--preview">
+                                    <div class="well__bar"><span>preview.txt</span><span>static</span></div>
+                                    <div class="well__body well__body--ascii">
+                                        <pre class="project__ascii" aria-hidden="true">    .----------------.
+     |  THAILAND      |
+     |  CYBER TOP     |
+     |  TALENT 2026   |
+     '--------+-------'
+           .--+--.
+          /  CTF  \
+          '-------'</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="work-row">
+                            <div class="work-row__copy">
+                                <p class="work-row__meta"><span>[ 03 ]</span><span>agent skill</span></p>
+                                <h3>ctf-skill-sunshine</h3>
+                                <p>
+                                    A portable AI-agent skill that fetches CTFd challenges and submits flags, with playbooks for seven CTF categories and SHA-256 checks for external tools.
+                                </p>
+                                <div class="work-row__foot">
+                                    <span>python / ctfd</span>
+                                    <a href="https://github.com/dragonmainsky/ctf-skill-sunshine" target="_blank" rel="noopener" aria-label="Open the ctf-skill-sunshine repository on GitHub">[ open repo ]</a>
+                                </div>
+                            </div>
+                            <div class="work-row__visual">
+                                <div class="well well--preview">
+                                    <div class="well__bar"><span>preview.txt</span><span>static</span></div>
+                                    <div class="well__body well__body--ascii">
+                                        <pre class="project__ascii" aria-hidden="true">  $ ./ctf-skill
+   &gt; fetch from ctfd
+   &gt; solve 7 categories
+   &gt; submit flag
+   ┌────────────────┐
+   │ flag accepted  │
+   └────────────────┘
+   sha256 · tools</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CERTIFICATE ============ -->
+        <section id="tab-certificate" class="tab-content" aria-labelledby="certificate-title">
+            <div class="band band--head">
+                <div class="shell page-head">
+                    <p class="kicker">[ 02 / certificate ]</p>
+                    <h2 id="certificate-title">thailand cyber top talent 2026</h2>
+                    <p class="page-head__lede">National Cyber Security Agency (NCSA) &amp; Huawei · Thailand National Cyber Academy</p>
+                </div>
+            </div>
+
+            <div class="band band--rule">
+                <div class="shell cert-layout">
+                    <div class="cert-info">
+                        <div class="well">
+                            <div class="well__bar">
+                                <span>record.txt</span>
+                                <span>senior category</span>
+                            </div>
+                            <div class="well__body">
+                                <dl class="facts">
+                                    <div>
+                                        <dt>recipient</dt>
+                                        <dd lang="th" class="thai">นาย สุรศาสตร์ จันทะกัลยา</dd>
+                                    </div>
+                                    <div>
+                                        <dt>team name</dt>
+                                        <dd>Ah-rai wa</dd>
+                                    </div>
+                                    <div>
+                                        <dt>presented date</dt>
+                                        <dd>15 August 2026</dd>
+                                    </div>
+                                    <div>
+                                        <dt>competition</dt>
+                                        <dd>NCSA CTF Tournament</dd>
+                                    </div>
+                                    <div>
+                                        <dt>certificate code</dt>
+                                        <dd>CERT-2026-RDE28N</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                            <div class="well__foot">
+                                <span>source / ncsa · huawei</span>
+                                <span>2026</span>
                             </div>
                         </div>
+                    </div>
 
-                        <dl class="facts facts--about">
+                    <figure class="cert-frame well">
+                        <div class="well__bar">
+                            <span>certificate.png</span>
+                            <span>2000 × 1414</span>
+                        </div>
+                        <div class="well__body cert-frame__body">
+                            <a class="cert-frame__link" href="images/Certificate_CERT-2026-RDE28N.png" target="_blank" rel="noopener" aria-label="Open the certificate image at full size in a new tab">
+                                <img src="images/Certificate_CERT-2026-RDE28N.png" alt="Thailand Cyber Top Talent 2026 certificate awarded to Surasat Chanthakalyaa" width="2000" height="1414" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <figcaption class="well__foot">
+                            <span>original scan</span>
+                            <a class="bracket-link" href="images/Certificate_CERT-2026-RDE28N.png" target="_blank" rel="noopener">[ view full size ]</a>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ ABOUT ============ -->
+        <section id="tab-about" class="tab-content" aria-labelledby="about-title">
+            <div class="band band--head">
+                <div class="shell page-head">
+                    <p class="kicker">[ 03 / about ]</p>
+                    <h2 id="about-title">mos</h2>
+                    <p class="page-head__lede">19 years old · Computer Science major at Mahasarakham University</p>
+                </div>
+            </div>
+
+            <div class="band band--rule">
+                <div class="shell zig">
+                    <div class="zig__copy">
+                        <p class="kicker">[ field notes ]</p>
+                        <p class="about__lede">
+                            Studying network protocols, server configuration and practical cybersecurity. Active in CTF tournaments and open-source file-sharing network projects.
+                        </p>
+                    </div>
+
+                    <div class="zig__visual">
+                        <div class="well well--fox">
+                            <div class="well__bar">
+                                <span>fox.txt</span>
+                                <span>10 fps</span>
+                            </div>
+                            <div class="well__body well__body--ascii">
+                                <pre class="ascii ascii--fox" data-live="fox" role="img" aria-label="An ascii fox asleep on its tail, breathing">
+
+             /\          /\
+            /  \        /  \        z
+           /    `.____.'    \
+          /                  \ z
+         ;    `-'      `-'    ;
+          `.     \    /     .'`-.._
+       _.-' `-.   \../   .-'       ``-._
+    .-'        `-. \/ .-'               `.
+   /   _..--''``-.`--'.-''``--..__        \
+  |  .'   ,                       ``-.     |
+  | (    (                            `.   |
+  |  `.   `.                            \  |
+   \   `-..__                            \ |
+    `-..__   ``---...______________...----'
+
+</pre>
+                            </div>
+                            <div class="well__foot">
+                                <span>breathe / 12s</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="band band--rule">
+                <div class="shell profile">
+                    <figure class="profile__portrait well">
+                        <div class="well__bar">
+                            <span>portrait.jpg</span>
+                            <span>400 × 400</span>
+                        </div>
+                        <div class="well__body">
+                            <img class="avatar" src="images/127975405.jpg" alt="MOS profile sketch" width="400" height="400" loading="lazy" decoding="async">
+                        </div>
+                    </figure>
+
+                    <div class="profile__copy">
+                        <p class="kicker">[ profile ]</p>
+                        <dl class="facts facts--wide">
                             <div>
-                                <dt>University</dt>
+                                <dt>university</dt>
                                 <dd>Mahasarakham University (MSU)</dd>
                             </div>
                             <div>
-                                <dt>Focus areas</dt>
+                                <dt>focus areas</dt>
                                 <dd>Computer Science, Networking, Cyber Security</dd>
                             </div>
                         </dl>
                     </div>
                 </div>
-            </section>
-
-            <!-- ============ INFO ME ============ -->
-            <section id="tab-info" class="tab-content" aria-labelledby="info-title">
-                <div class="panel panel--info">
-                    <div class="panel__chrome" aria-hidden="true">
-                        <span class="panel__title">Info Me</span>
-                    </div>
-
-                    <div class="panel__body">
-                        <div class="info-head">
-                            <div>
-                                <h2 id="info-title" data-decode>Info Me</h2>
-                                <p>
-                                    Find me across the platforms I use for security practice, learning, and creative work.
-                                </p>
-                            </div>
-                        </div>
-
-                        <ul class="profile-links" aria-label="Online profiles">
-                            <li>
-                                <a class="profile-link profile-link--facebook" href="https://www.facebook.com/surasat.chanthakalyaa/" target="_blank" rel="noopener noreferrer">
-                                    <span class="profile-link__icon" aria-hidden="true">
-                                        <i class="fa-brands fa-facebook-f"></i>
-                                    </span>
-                                    <span class="profile-link__body">
-                                        <span class="profile-link__label">Facebook</span>
-                                        <span class="profile-link__meta">Surasat Chanthakalyaa</span>
-                                    </span>
-                                    <i class="fa-solid fa-arrow-up-right-from-square profile-link__arrow" aria-hidden="true"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="profile-link profile-link--x" href="https://x.com/dragonmagm70700" target="_blank" rel="noopener noreferrer">
-                                    <span class="profile-link__icon" aria-hidden="true">
-                                        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                                            <path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.2l-4.9-6.4L6.5 22H3.4l7.3-8.3L2.8 2h6.4l4.4 5.8L18.9 2Zm-1.1 17.9h1.7L8.3 4H6.5l11.3 15.9Z"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="profile-link__body">
-                                        <span class="profile-link__label">X</span>
-                                        <span class="profile-link__meta">dragonmagm70700</span>
-                                        <span class="profile-link__note">Art commission coming soon</span>
-                                    </span>
-                                    <i class="fa-solid fa-arrow-up-right-from-square profile-link__arrow" aria-hidden="true"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="profile-link profile-link--htb" href="https://profile.hackthebox.com/profile/01a09145-66db-71aa-9630-552d8ac1460a?utm_medium=copy_url" target="_blank" rel="noopener noreferrer">
-                                    <span class="profile-link__icon" aria-hidden="true">
-                                        <i class="fa-solid fa-cube"></i>
-                                    </span>
-                                    <span class="profile-link__body">
-                                        <span class="profile-link__label">Hack The Box</span>
-                                        <span class="profile-link__meta">CTF profile</span>
-                                    </span>
-                                    <i class="fa-solid fa-arrow-up-right-from-square profile-link__arrow" aria-hidden="true"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="profile-link profile-link--cisco" href="https://learningnetwork.cisco.com/s/profile/005QO00000II3Zl" target="_blank" rel="noopener noreferrer">
-                                    <span class="profile-link__icon" aria-hidden="true">
-                                        <i class="fa-solid fa-network-wired"></i>
-                                    </span>
-                                    <span class="profile-link__body">
-                                        <span class="profile-link__label">Cisco Learning Network</span>
-                                        <span class="profile-link__meta">Learning profile</span>
-                                    </span>
-                                    <i class="fa-solid fa-arrow-up-right-from-square profile-link__arrow" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-
-        <footer class="site-footer">
-            <div class="footer-card">
-                <img class="footer-stars" src="images/vectordelia/stars-halftone.webp" alt="" width="520" height="390" loading="lazy" decoding="async">
-                <p class="footer-brand">
-                    <span><strong>SUNSHINE</strong><span>Vectordelia / Portfolio</span></span>
-                </p>
-                <p class="footer-credit">Vector assets: <a href="https://frutigeraeroarchive.org/resources/metro" target="_blank" rel="noopener">Frutiger Aero Archive</a>. Personal, non-commercial use.</p>
             </div>
-        </footer>
+        </section>
 
-    </div>
+        <!-- ============ INFO ============ -->
+        <section id="tab-info" class="tab-content" aria-labelledby="info-title">
+            <div class="band band--head">
+                <div class="shell page-head">
+                    <p class="kicker">[ 04 / info ]</p>
+                    <h2 id="info-title">info</h2>
+                    <p class="page-head__lede">Find me across the platforms I use for security practice, learning and creative work.</p>
+                </div>
+            </div>
 
-    <button class="to-top" id="to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Back to top" title="Back to top">
-        <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
-    </button>
+            <div class="band band--rule">
+                <div class="shell">
+                    <p class="prompt-line" aria-hidden="true"><span>surasat@msu</span>:<span>~</span>$ open --profile</p>
+                    <ul class="profile-list" aria-label="Online profiles">
+                        <li>
+                            <a class="profile-row" href="https://www.facebook.com/surasat.chanthakalyaa/" target="_blank" rel="noopener noreferrer">
+                                <span class="profile-row__index" aria-hidden="true">[01]</span>
+                                <span class="profile-row__body">
+                                    <span class="profile-row__label">facebook</span>
+                                    <span class="profile-row__meta">Surasat Chanthakalyaa</span>
+                                </span>
+                                <span class="profile-row__cta" aria-hidden="true">[open]</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="profile-row" href="https://x.com/dragonmagm70700" target="_blank" rel="noopener noreferrer">
+                                <span class="profile-row__index" aria-hidden="true">[02]</span>
+                                <span class="profile-row__body">
+                                    <span class="profile-row__label">x</span>
+                                    <span class="profile-row__meta">dragonmagm70700</span>
+                                    <span class="profile-row__note">art commission coming soon</span>
+                                </span>
+                                <span class="profile-row__cta" aria-hidden="true">[open]</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="profile-row" href="https://profile.hackthebox.com/profile/01a09145-66db-71aa-9630-552d8ac1460a?utm_medium=copy_url" target="_blank" rel="noopener noreferrer">
+                                <span class="profile-row__index" aria-hidden="true">[03]</span>
+                                <span class="profile-row__body">
+                                    <span class="profile-row__label">hack the box</span>
+                                    <span class="profile-row__meta">ctf profile</span>
+                                </span>
+                                <span class="profile-row__cta" aria-hidden="true">[open]</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="profile-row" href="https://learningnetwork.cisco.com/s/profile/005QO00000II3Zl" target="_blank" rel="noopener noreferrer">
+                                <span class="profile-row__index" aria-hidden="true">[04]</span>
+                                <span class="profile-row__body">
+                                    <span class="profile-row__label">cisco learning network</span>
+                                    <span class="profile-row__meta">learning profile</span>
+                                </span>
+                                <span class="profile-row__cta" aria-hidden="true">[open]</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="info-note" aria-hidden="true">&gt; end of list.</p>
+                </div>
+            </div>
+        </section>
 
-    <button class="intro-skip" id="intro-skip" type="button">
-        <span>Skip intro</span>
-        <kbd>Esc</kbd>
-    </button>
+    </main>
 
-    <script src="js/main.js?v=26"></script>
+    <footer class="site-footer">
+        <div class="shell footer__inner">
+            <div class="footer__brand">
+                <span class="footer__logo">sunshine</span>
+                <span class="footer__sub">portfolio of mos / 2026</span>
+            </div>
+            <p class="footer__meta">
+                Mahasarakham University · built flat<br>
+                Seasonal field by <a href="https://ascii.rest/" target="_blank" rel="noopener">ascii.rest</a> / <a href="https://github.com/bas3line/ascii" target="_blank" rel="noopener">@bas3line</a> (MIT)
+            </p>
+            <button class="footer__top" type="button" onclick="window.scrollTo(0, 0)">[ back to top ]</button>
+        </div>
+    </footer>
+
+    <script src="js/main.js?v=30"></script>
+    <script src="js/ui-sound.js?v=2"></script>
+    <script type="module" src="js/ascii-live.js?v=5"></script>
+    <script type="module" src="js/season-field.js?v=4"></script>
 </body>
 </html>
